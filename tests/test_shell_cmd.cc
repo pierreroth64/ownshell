@@ -5,33 +5,7 @@
 
 #include "gtest/gtest.h"
 #include "shell.h"
-
-/* Shell command concrete class for testing */
-class MyShellCmd : public ShellCmd {
-    public:
-        MyShellCmd(ShellEnv* env, std::string name, std::string description):  ShellCmd(env, name, description) {
-            this->was_called = 0;
-            this->arg_nb = 0;
-        } ;
-        bool was_called;
-        unsigned int arg_nb;
-        virtual void run(char** argv, int argc);
-        void reset(void);
-
-};
-
-void MyShellCmd::run(char** argv, int argc)
-{
-    this->was_called = 1;
-    this->arg_nb = argc;
-}
-
-void MyShellCmd::reset(void)
-{
-    this->was_called = 0;
-    this->arg_nb = 0;
-}
-/* ----------- */
+#include "shell_cmd_test.h"
 
 class ShellCmdTest : public ::testing::Test {
     protected:

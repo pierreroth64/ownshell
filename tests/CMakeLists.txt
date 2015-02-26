@@ -15,6 +15,8 @@ add_definitions(-Wall -Wextra -std=c++0x)
 set(UNITTEST_FILES
     test_shell_env.cc
     test_shell_cmd.cc
+    test_shell_module.cc
+    shell_cmd_test.cc
 )
 
 # libraries...

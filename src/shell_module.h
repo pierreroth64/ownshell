@@ -21,10 +21,11 @@ class ShellModule
     private:
         ShellEnv* env;
         std::string description;
-        std::list<ShellCmd> commands;
+        std::list<ShellCmd* > commands;
     public:
         ShellModule(ShellEnv* env, std::string description);
         void registerCmd(ShellCmd* cmd);
+        unsigned int getRegisteredCmdsNb(void);
         std::string getHelp(void);
         std::string getHelp(ShellCmd* cmd);
         void runCmd(std::string name, char **argv, int argc);
