@@ -20,9 +20,9 @@ class ShellCmd
         ShellEnv* env;
         std::string name;
         std::string description;
-        void (* exec)(char** argv, int argc);
     public:
         ShellCmd(ShellEnv* env, std::string name, std::string description);
+        virtual ~ShellCmd();
         virtual void run(char** argv, int argc) = 0;
 };
 #endif

@@ -22,6 +22,7 @@ add_definitions(-Wall -Wextra)
 
 set(SOURCES
     src/shell_env.cc
+    src/shell_cmd.cc
 )
 
 set(LIBSHELL_NAME "\"Shell Library\"")
