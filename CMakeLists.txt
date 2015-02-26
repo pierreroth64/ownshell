@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 2.8)
 project(shell)
 
 # uncomment this line to activate makefile verbose mode
-set(CMAKE_VERBOSE_MAKEFILE ON)
+#set(CMAKE_VERBOSE_MAKEFILE ON)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 

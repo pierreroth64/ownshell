@@ -14,7 +14,6 @@ ShellModule::ShellModule(ShellEnv* env, std::string description)
 
 ShellCmd* ShellModule::findCmdByName(std::string name)
 {
-    void * found = 0;
     ShellCmd * cmd;
     for (std::list<ShellCmd *>::iterator it = this->commands.begin(); it != this->commands.end(); ++it) {
         cmd = (*it);

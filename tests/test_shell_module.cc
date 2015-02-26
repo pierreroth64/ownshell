@@ -42,7 +42,7 @@ TEST_F(ShellModuleTest, findCmdByName) {
 
     my_mod->registerCmd(my_cmd_1);
     my_mod->registerCmd(my_cmd_2);
-    ShellCmd* found = (ShellCmd*) my_mod->findCmdByName("my command 1");
+    my_mod->findCmdByName("my command 1");
     ASSERT_THROW(my_mod->findCmdByName("unknown command"), shell_except_not_found);
 
     delete my_cmd_1;
