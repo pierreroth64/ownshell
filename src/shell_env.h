@@ -25,5 +25,6 @@ class ShellEnv
         void addEntry(std::string name, void* entry);
         void removeEntry(std::string name);
         void * getEntry(std::string name);
+        unsigned int getEntriesNumber(void);
 };
 #endif

@@ -35,3 +35,28 @@ TEST_F(ShellEnvTest, getEntryNotFound) {
     env->addEntry("my_first_data", (void *) &first_data);
     ASSERT_THROW(env->getEntry("my_unknown_data"), shell_except_not_found);
 }
+
+TEST_F(ShellEnvTest, removeEntry) {
+
+    int data = 13;
+    env->addEntry("my_data", (void *) &data);
+
+    EXPECT_EQ(13, *((int *) env->getEntry("my_data")));
+    env->removeEntry("my_data");
+    ASSERT_THROW(env->getEntry("my_data"), shell_except_not_found);
+}
+
+TEST_F(ShellEnvTest, getEntriesNumber) {
+
+    int first_data = 13;
+    env->addEntry("my_first_data", (void *) &first_data);
+    EXPECT_EQ(1, env->getEntriesNumber());
+
+    int second_data = 14;
+    env->addEntry("my_second_data", (void *) &second_data);
+    EXPECT_EQ(2, env->getEntriesNumber());
+
+    env->removeEntry("my_first_data");
+    EXPECT_EQ(1, env->getEntriesNumber());
+}
+

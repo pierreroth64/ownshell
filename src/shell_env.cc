@@ -32,7 +32,14 @@ void ShellEnv::addEntry(std::string name, void* entry)
 
 void ShellEnv::removeEntry(std::string name)
 {
-
+    for (std::list<ShellEnvDataEntry *>::iterator it = this->entries.begin(); it != this->entries.end(); ) {
+        if ((*it)->name == name) {
+            it = this->entries.erase(it);
+            break;
+        } else {
+            ++it;
+        }
+    }
 }
 
 void * ShellEnv::getEntry(std::string name)
@@ -47,4 +54,9 @@ void * ShellEnv::getEntry(std::string name)
     if (!found)
         throw shell_except_not_found("Environment entry not found");
     return found;
+}
+
+unsigned int ShellEnv::getEntriesNumber(void)
+{
+    return this->entries.size();
 }
