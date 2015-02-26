@@ -30,4 +30,34 @@ TEST_F(ShellModuleTest, registerCmd) {
     my_mod->registerCmd(my_cmd_1);
     my_mod->registerCmd(my_cmd_2);
     EXPECT_EQ(2, my_mod->getRegisteredCmdsNb());
+
+    delete my_cmd_1;
+    delete my_cmd_2;
+}
+
+TEST_F(ShellModuleTest, findCmdByName) {
+
+    MyShellCmd* my_cmd_1 = new MyShellCmd(this->env, "my command 1", "my command 1 description");
+    MyShellCmd* my_cmd_2 = new MyShellCmd(this->env, "my command 2", "my command 2 description");
+
+    my_mod->registerCmd(my_cmd_1);
+    my_mod->registerCmd(my_cmd_2);
+    ShellCmd* found = (ShellCmd*) my_mod->findCmdByName("my command 1");
+    ASSERT_THROW(my_mod->findCmdByName("unknown command"), shell_except_not_found);
+
+    delete my_cmd_1;
+    delete my_cmd_2;
+}
+
+
+TEST_F(ShellModuleTest, registerCmdAlready) {
+
+    MyShellCmd* my_cmd_1 = new MyShellCmd(this->env, "my command", "my command description");
+    MyShellCmd* my_cmd_2 = new MyShellCmd(this->env, "my command", "same command name");
+
+    my_mod->registerCmd(my_cmd_1);
+    ASSERT_THROW(my_mod->registerCmd(my_cmd_2), shell_except_already);
+
+    delete my_cmd_1;
+    delete my_cmd_2;
 }

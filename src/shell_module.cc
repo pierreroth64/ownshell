@@ -3,6 +3,7 @@
 
    Shell library - module implementation */
 
+#include "shell_except.h"
 #include "shell_module.h"
 
 ShellModule::ShellModule(ShellEnv* env, std::string description)
@@ -11,9 +12,25 @@ ShellModule::ShellModule(ShellEnv* env, std::string description)
     this->description = description;
 }
 
+ShellCmd* ShellModule::findCmdByName(std::string name)
+{
+    void * found = 0;
+    ShellCmd * cmd;
+    for (std::list<ShellCmd *>::iterator it = this->commands.begin(); it != this->commands.end(); ++it) {
+        cmd = (*it);
+        if (cmd->getName() == name)
+            return cmd;
+    }
+    throw shell_except_not_found("Command not found");
+}
 void ShellModule::registerCmd(ShellCmd* cmd)
 {
-    this->commands.push_back(cmd);
+    try {
+        this->findCmdByName(cmd->getName());
+        throw shell_except_already("Command with such a name already registered");
+    } catch (shell_except_not_found e) {
+        this->commands.push_back(cmd);
+    }
 }
 
 unsigned int ShellModule::getRegisteredCmdsNb(void)

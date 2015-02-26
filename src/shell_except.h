@@ -25,4 +25,9 @@ class shell_except_not_found: public shell_except
         shell_except_not_found(const char *w): shell_except(w) {}
 };
 
+class shell_except_already: public shell_except
+{
+    public:
+        shell_except_already(const char *w): shell_except(w) {}
+};
 #endif

@@ -23,6 +23,7 @@ class ShellCmd
     public:
         ShellCmd(ShellEnv* env, std::string name, std::string description);
         virtual ~ShellCmd();
+        std::string getName(void);
         virtual void run(char** argv, int argc) = 0;
 };
 #endif

@@ -26,6 +26,7 @@ class ShellModule
         ShellModule(ShellEnv* env, std::string description);
         void registerCmd(ShellCmd* cmd);
         unsigned int getRegisteredCmdsNb(void);
+        ShellCmd* findCmdByName(std::string name);
         std::string getHelp(void);
         std::string getHelp(ShellCmd* cmd);
         void runCmd(std::string name, char **argv, int argc);

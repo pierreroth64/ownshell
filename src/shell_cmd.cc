@@ -17,3 +17,8 @@ ShellCmd::~ShellCmd()
 
 }
 
+std::string ShellCmd::getName(void)
+{
+    return this->name;
+}
+
