@@ -1,7 +1,7 @@
 /* Copyright (C) 2015 Legrand
    All rights reserved
 
-   CCTV Library */
+   Shell Library - unit tests for environment */
 
 #include "gtest/gtest.h"
 #include "shell.h"
