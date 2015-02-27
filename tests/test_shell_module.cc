@@ -85,3 +85,9 @@ TEST_F(ShellModuleTest, runCmd) {
     delete my_cmd_1;
     delete my_cmd_2;
 }
+
+TEST_F(ShellModuleTest, runCmdUnknown) {
+
+    char *args[] = {"first", "second"};
+    ASSERT_THROW(my_mod->runCmd("unknown command", args, 2), shell_except_not_found);
+}
