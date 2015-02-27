@@ -19,6 +19,11 @@ ShellModule::ShellModule(ShellEnv* env, std::string name, std::string descriptio
     this->description = description;
 }
 
+std::string ShellModule::getName(void)
+{
+    return this->name;
+}
+
 ShellCmd* ShellModule::findCmdByName(std::string name)
 {
     ShellCmd * cmd;

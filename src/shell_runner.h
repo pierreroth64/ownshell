@@ -14,19 +14,20 @@
 
 /**
  * A SellCmdRunner embeds ShellCmd objects.
- * It is the primary interface to run - previously registered - shell commands
+ * It is the primary interface to run - previously registered - shell modules
  *
  */
-class ShellCmdRunner
+class ShellRunner
 {
     private:
+        ShellEnv* env;
+        std::string name;
         std::list<ShellModule *> modules;
-
     public:
-        ShellCmdRunner(ShellEnv* env);
-        ~ShellCmdRunner();
+        ShellRunner(ShellEnv* env, std::string name);
         void registerModule(ShellModule* module);
-        void run(void);
+        ShellModule* findModuleByName(std::string name);
+        std::string runCmd(std::string module, std::string name, char **argv, int argc);
 };
 
 #endif
