@@ -30,7 +30,7 @@ class ShellModule
         unsigned int getRegisteredCmdsNb(void);
         ShellCmd* findCmdByName(std::string name);
         std::string getHelp(void);
-        std::string getHelp(ShellCmd* cmd);
+        std::string getCmdHelp(std::string name);
         std::string runCmd(std::string name, char **argv, int argc);
 };
 

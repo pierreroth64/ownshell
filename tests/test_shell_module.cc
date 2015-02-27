@@ -91,3 +91,17 @@ TEST_F(ShellModuleTest, runCmdUnknown) {
     char *args[] = {"first", "second"};
     ASSERT_THROW(my_mod->runCmd("unknown command", args, 2), shell_except_not_found);
 }
+
+TEST_F(ShellModuleTest, getHelp) {
+
+    ShellModule* mod_1 = new ShellModule(env, "mod1");
+    ShellModule* mod_2 = new ShellModule(env, "mod2", "with description");
+    EXPECT_EQ("", mod_1->getHelp());
+    EXPECT_EQ("with description", mod_2->getHelp());
+
+    MyShellCmd* cmd = new MyShellCmd(this->env, "my command", "my command description");
+    mod_1->registerCmd(cmd);
+    EXPECT_EQ("my command description", mod_1->getCmdHelp("my command"));
+    ASSERT_THROW(mod_1->getCmdHelp("unknown command"), shell_except_not_found);
+    ASSERT_THROW(mod_2->getCmdHelp("my command"), shell_except_not_found);
+}

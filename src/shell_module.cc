@@ -50,3 +50,15 @@ std::string ShellModule::runCmd(std::string name, char **argv, int argc)
     cmd = this->findCmdByName(name);
     return cmd->run(argv, argc);
 }
+
+std::string ShellModule::getHelp(void)
+{
+    return this->description;
+}
+
+std::string ShellModule::getCmdHelp(std::string name)
+{
+    ShellCmd* cmd;
+    cmd = this->findCmdByName(name);
+    return cmd->getHelp();
+}

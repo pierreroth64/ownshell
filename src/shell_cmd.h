@@ -24,6 +24,7 @@ class ShellCmd
         ShellCmd(ShellEnv* env, std::string name, std::string description);
         virtual ~ShellCmd();
         std::string getName(void);
+        std::string getHelp(void);
         virtual std::string run(char** argv, int argc) = 0;
 };
 #endif

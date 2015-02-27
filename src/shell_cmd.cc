@@ -22,3 +22,7 @@ std::string ShellCmd::getName(void)
     return this->name;
 }
 
+std::string ShellCmd::getHelp(void)
+{
+    return this->description;
+}
