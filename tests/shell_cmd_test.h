@@ -15,7 +15,7 @@ class MyShellCmd : public ShellCmd {
         };
         bool was_called;
         unsigned int arg_nb;
-        virtual void run(char** argv, int argc);
+        virtual std::string run(char** argv, int argc);
         void reset(void);
         int lastArgNumber(void);
 };

@@ -7,10 +7,12 @@
 #include "shell.h"
 #include "shell_cmd_test.h"
 
-void MyShellCmd::run(char** argv, int argc)
+std::string MyShellCmd::run(char** argv, int argc)
 {
     this->was_called = 1;
     this->arg_nb = argc;
+    argv = argv;
+    return "yeah!";
 }
 
 void MyShellCmd::reset(void)

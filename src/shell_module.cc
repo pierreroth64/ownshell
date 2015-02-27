@@ -44,9 +44,9 @@ unsigned int ShellModule::getRegisteredCmdsNb(void)
     return this->commands.size();
 }
 
-void ShellModule::runCmd(std::string name, char **argv, int argc)
+std::string ShellModule::runCmd(std::string name, char **argv, int argc)
 {
     ShellCmd* cmd;
     cmd = this->findCmdByName(name);
-    cmd->run(argv, argc);
+    return cmd->run(argv, argc);
 }
