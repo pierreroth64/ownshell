@@ -32,6 +32,16 @@ void ShellRunner::registerModule(ShellModule* module)
     }
 }
 
+std::string ShellRunner::getAllModulesHelp(void)
+{
+    ShellModule* mod;
+    std::string help;
+    for (std::list<ShellModule *>::iterator it = this->modules.begin(); it != this->modules.end(); ++it) {
+        mod = (*it);
+        help += mod->getName() + ": " + mod->getHelp() + "\n";
+    }
+    return help;
+}
 
 std::string ShellRunner::runCmd(std::string module, std::string name, char **argv, int argc)
 {

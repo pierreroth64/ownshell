@@ -28,6 +28,7 @@ set(SOURCES
     src/shell_cmd.cc
     src/shell_module.cc
     src/shell_runner.cc
+    src/shell_app.cc
 )
 
 set(LIBSHELL_NAME "\"Shell Library\"")

@@ -11,5 +11,6 @@
 #include "shell_cmd.h"
 #include "shell_module.h"
 #include "shell_runner.h"
+#include "shell_app.h"
 
 #endif

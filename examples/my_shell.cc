@@ -32,18 +32,15 @@ int main(void) {
     ShellModule* my_mod = new ShellModule(env, "newbie", "newbie commands");
     my_mod->registerCmd(my_cmd);
 
-    /* Finally, create the runner and regsiter modules*/
+    /* Finally, create the runner and register modules*/
     ShellRunner* runner = new ShellRunner(env, "my shell");
     runner->registerModule(my_mod);
 
-    /* Play! */
-    runner->runCmd("newbie", "hello", (char **) 0, 0);
-
-    try {
-        runner->runCmd("newbie", "missing", (char **) 0, 0);
-    } catch (shell_except e) {
-        std::cerr << "Error: unknown command" << std::endl;
-    }
+    /* Start your shell application */
+    ShellApp* my_shell = new ShellApp(env, "my_shell>", runner);
+    my_shell->setExitCommand("exit");
+    my_shell->setWelcomeBanner("Welcome to my simple shell");
+    my_shell->loop();
 
     exit(0);
 }

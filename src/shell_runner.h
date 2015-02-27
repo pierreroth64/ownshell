@@ -28,6 +28,7 @@ class ShellRunner
         void registerModule(ShellModule* module);
         ShellModule* findModuleByName(std::string name);
         std::string runCmd(std::string module, std::string name, char **argv, int argc);
+        std::string getAllModulesHelp(void);
 };
 
 #endif
