@@ -32,6 +32,7 @@ class ShellModule
         ShellCmd* findCmdByName(std::string name);
         std::string getHelp(void);
         std::string getCmdHelp(std::string name);
+        std::string getAllCmdsHelp(void);
         std::string runCmd(std::string name, char **argv, int argc);
 };
 

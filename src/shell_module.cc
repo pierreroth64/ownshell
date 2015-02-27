@@ -67,3 +67,14 @@ std::string ShellModule::getCmdHelp(std::string name)
     cmd = this->findCmdByName(name);
     return cmd->getHelp();
 }
+
+std::string ShellModule::getAllCmdsHelp(void)
+{
+    std::string help;
+    ShellCmd * cmd;
+    for (std::list<ShellCmd *>::iterator it = this->commands.begin(); it != this->commands.end(); ++it) {
+        cmd = (*it);
+        help += "\t" + cmd->getName() + ": " + cmd->getHelp() + "\n";
+    }
+    return help;
+}

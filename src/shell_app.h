@@ -25,7 +25,9 @@ class ShellApp
         void displayWelcomeBanner(void);
         void displayPrompt(void);
         void displayError(std::string error);
+        void displayInfo(std::string msg);
         void displayHelp(std::vector<std::string> tokens);
+        std::string getGeneralHelp(void);
         std::vector<std::string> getCmdLineTokens(void);
 
     public:

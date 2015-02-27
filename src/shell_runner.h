@@ -29,6 +29,8 @@ class ShellRunner
         ShellModule* findModuleByName(std::string name);
         std::string runCmd(std::string module, std::string name, char **argv, int argc);
         std::string getAllModulesHelp(void);
+        std::string getAllModuleCmdsHelp(std::string module);
+        std::string getModuleCmdHelp(std::string module, std::string cmd);
 };
 
 #endif

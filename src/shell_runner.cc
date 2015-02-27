@@ -38,9 +38,21 @@ std::string ShellRunner::getAllModulesHelp(void)
     std::string help;
     for (std::list<ShellModule *>::iterator it = this->modules.begin(); it != this->modules.end(); ++it) {
         mod = (*it);
-        help += mod->getName() + ": " + mod->getHelp() + "\n";
+        help += "\t" + mod->getName() + ": " + mod->getHelp() + "\n";
     }
     return help;
+}
+
+std::string ShellRunner::getModuleCmdHelp(std::string module, std::string cmd)
+{
+    ShellModule* mod = this->findModuleByName(module);
+    return mod->getCmdHelp(cmd);
+}
+
+std::string ShellRunner::getAllModuleCmdsHelp(std::string module)
+{
+    ShellModule * mod = this->findModuleByName(module);
+    return mod->getAllCmdsHelp();
 }
 
 std::string ShellRunner::runCmd(std::string module, std::string name, char **argv, int argc)
