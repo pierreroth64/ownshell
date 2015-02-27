@@ -18,6 +18,9 @@ add_custom_target(utests
     WORKING_DIRECTORY "${UTEST_DIR}"
     COMMENT "Running unit tests")
 
+# examples
+add_subdirectory(${PROJECT_SOURCE_DIR}/examples)
+
 add_definitions(-Wall -Wextra)
 
 set(SOURCES
