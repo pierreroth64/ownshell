@@ -61,3 +61,27 @@ TEST_F(ShellModuleTest, registerCmdAlready) {
     delete my_cmd_1;
     delete my_cmd_2;
 }
+
+TEST_F(ShellModuleTest, runCmd) {
+
+    MyShellCmd* my_cmd_1 = new MyShellCmd(this->env, "my command 1", "my command 1 description");
+    MyShellCmd* my_cmd_2 = new MyShellCmd(this->env, "my command 2", "my command 2 description");
+
+    char *args[] = {"first", "second"};
+
+    my_mod->registerCmd(my_cmd_1);
+    my_mod->registerCmd(my_cmd_2);
+
+    EXPECT_EQ(0, my_cmd_1->lastArgNumber());
+    EXPECT_EQ(0, my_cmd_2->lastArgNumber());
+
+    my_mod->runCmd("my command 1", args, 2);
+    EXPECT_EQ(2, my_cmd_1->lastArgNumber());
+    EXPECT_EQ(0, my_cmd_2->lastArgNumber());
+
+    my_mod->runCmd("my command 2", args, 3);
+    EXPECT_EQ(3, my_cmd_2->lastArgNumber());
+
+    delete my_cmd_1;
+    delete my_cmd_2;
+}

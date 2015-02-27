@@ -17,6 +17,6 @@ class MyShellCmd : public ShellCmd {
         unsigned int arg_nb;
         virtual void run(char** argv, int argc);
         void reset(void);
-
+        int lastArgNumber(void);
 };
 

@@ -18,3 +18,8 @@ void MyShellCmd::reset(void)
     this->was_called = 0;
     this->arg_nb = 0;
 }
+
+int MyShellCmd::lastArgNumber(void)
+{
+    return this->arg_nb;
+}

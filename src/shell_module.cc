@@ -6,9 +6,16 @@
 #include "shell_except.h"
 #include "shell_module.h"
 
-ShellModule::ShellModule(ShellEnv* env, std::string description)
+ShellModule::ShellModule(ShellEnv* env, std::string name)
 {
     this->env = env;
+    this->name = name;
+}
+
+ShellModule::ShellModule(ShellEnv* env, std::string name, std::string description)
+{
+    this->env = env;
+    this->name = name;
     this->description = description;
 }
 
@@ -37,3 +44,9 @@ unsigned int ShellModule::getRegisteredCmdsNb(void)
     return this->commands.size();
 }
 
+void ShellModule::runCmd(std::string name, char **argv, int argc)
+{
+    ShellCmd* cmd;
+    cmd = this->findCmdByName(name);
+    cmd->run(argv, argc);
+}

@@ -20,10 +20,12 @@ class ShellModule
 {
     private:
         ShellEnv* env;
+        std::string name;
         std::string description;
         std::list<ShellCmd* > commands;
     public:
-        ShellModule(ShellEnv* env, std::string description);
+        ShellModule(ShellEnv* env, std::string name);
+        ShellModule(ShellEnv* env, std::string name, std::string description);
         void registerCmd(ShellCmd* cmd);
         unsigned int getRegisteredCmdsNb(void);
         ShellCmd* findCmdByName(std::string name);
