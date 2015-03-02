@@ -8,23 +8,21 @@
 
 #include <string>
 #include <list>
+#include "shell_component.h"
 #include "shell_env.h"
 
 /**
  *  ShellCmd is an interface that has to be implemented by concrete commands
+ *  It is also a ShellComponent as it can be part of a composite
  */
 
-class ShellCmd
+class ShellCmd: public ShellComponent
 {
-    private:
-        ShellEnv* env;
-        std::string name;
-        std::string description;
     public:
-        ShellCmd(ShellEnv* env, std::string name, std::string description);
-        virtual ~ShellCmd();
-        std::string getName(void);
-        std::string getHelp(void);
-        virtual std::string run(char** argv, int argc) = 0;
+        ShellCmd(ShellEnv* env, std::string name, std::string description) : ShellComponent(env, name, description){};
+        virtual std::string getHelp(void);
+        virtual std::string run(char** argv, int argc);
+    private:
+        virtual ~ShellCmd(){};
 };
 #endif

@@ -5,24 +5,14 @@
 
 #include "shell_cmd.h"
 
-ShellCmd::ShellCmd(ShellEnv* env, std::string name, std::string description)
-{
-    this->env = env;
-    this->name = name;
-    this->description = description;
-}
-
-ShellCmd::~ShellCmd()
-{
-
-}
-
-std::string ShellCmd::getName(void)
-{
-    return this->name;
-}
-
 std::string ShellCmd::getHelp(void)
 {
-    return this->description;
+    return this->getDescription();
+}
+
+std::string ShellCmd::run(char** argv, int argc)
+{
+    argv = argv;
+    argc = argc;
+    return "";
 }

@@ -7,16 +7,21 @@
 #define _SHELL_LIB_I_APP_H
 
 #include "shell_env.h"
-#include "shell_runner.h"
+#include "shell_component.h"
 #include <vector>
 /**
  * A ShellApp implements an interactive shell
  */
 class ShellApp
 {
+    public:
+        ShellApp(ShellEnv* env, std::string prompt, ShellComponent* root);
+        void loop(void);
+        void setExitCommand(std::string name);
+        void setWelcomeBanner(std::string banner);
     private:
         ShellEnv* env;
-        ShellRunner* runner;
+        ShellComponent* root;
         std::string welcome_banner;
         std::string prompt;
         std::string exit_cmd;
@@ -29,12 +34,6 @@ class ShellApp
         void displayHelp(std::vector<std::string> tokens);
         std::string getGeneralHelp(void);
         std::vector<std::string> getCmdLineTokens(void);
-
-    public:
-        ShellApp(ShellEnv* env, std::string prompt, ShellRunner* runner);
-        void loop(void);
-        void setExitCommand(std::string name);
-        void setWelcomeBanner(std::string banner);
 };
 
 #endif

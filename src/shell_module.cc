@@ -6,75 +6,64 @@
 #include "shell_except.h"
 #include "shell_module.h"
 
-ShellModule::ShellModule(ShellEnv* env, std::string name)
+ShellComponent* ShellModule::findComponent(ShellComponent * component)
 {
-    this->env = env;
-    this->name = name;
-}
+    ShellComponent * _component;
 
-ShellModule::ShellModule(ShellEnv* env, std::string name, std::string description)
-{
-    this->env = env;
-    this->name = name;
-    this->description = description;
-}
+    if (component == 0)
+        throw shell_except_not_found("Component not found");
 
-std::string ShellModule::getName(void)
-{
-    return this->name;
-}
-
-ShellCmd* ShellModule::findCmdByName(std::string name)
-{
-    ShellCmd * cmd;
-    for (std::list<ShellCmd *>::iterator it = this->commands.begin(); it != this->commands.end(); ++it) {
-        cmd = (*it);
-        if (cmd->getName() == name)
-            return cmd;
+    for (std::list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
+        _component = (*it);
+        if (_component->getName() == component->getName())
+            return _component;
     }
-    throw shell_except_not_found("Command not found");
+    throw shell_except_not_found("Component not found");
 }
-void ShellModule::registerCmd(ShellCmd* cmd)
+
+void ShellModule::add(ShellComponent* component)
 {
     try {
-        this->findCmdByName(cmd->getName());
-        throw shell_except_already("Command with such a name already registered");
+        this->findComponent(component);
+        throw shell_except_already("Component with such a name already exists");
     } catch (shell_except_not_found e) {
-        this->commands.push_back(cmd);
+        this->components.push_back(component);
     }
 }
 
-unsigned int ShellModule::getRegisteredCmdsNb(void)
+void ShellModule::remove(ShellComponent* component)
 {
-    return this->commands.size();
+    for (std::list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ) {
+        if ((*it)->getName() == component->getName()) {
+            it = this->components.erase(it);
+            break;
+        } else {
+            ++it;
+        }
+    }
 }
 
-std::string ShellModule::runCmd(std::string name, char **argv, int argc)
+unsigned int ShellModule::getComponentsNb(void)
 {
-    ShellCmd* cmd;
-    cmd = this->findCmdByName(name);
-    return cmd->run(argv, argc);
+    /* We do not iterate over components: just want first level ones in tree */
+    return this->components.size();
 }
 
 std::string ShellModule::getHelp(void)
 {
-    return this->description;
-}
+    ShellComponent * component;
+    std::string help = "Module " + this->getHelp() + ":\n";
 
-std::string ShellModule::getCmdHelp(std::string name)
-{
-    ShellCmd* cmd;
-    cmd = this->findCmdByName(name);
-    return cmd->getHelp();
-}
-
-std::string ShellModule::getAllCmdsHelp(void)
-{
-    std::string help;
-    ShellCmd * cmd;
-    for (std::list<ShellCmd *>::iterator it = this->commands.begin(); it != this->commands.end(); ++it) {
-        cmd = (*it);
-        help += "\t" + cmd->getName() + ": " + cmd->getHelp() + "\n";
+    for (std::list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
+        component = (*it);
+        help += "\t" + component->getName() + ": " + component->getHelp() + "\n";
     }
     return help;
+}
+
+std::string ShellModule::run(char** argv, int argc)
+{
+    std::string help = "You cannot run this module directly.\n\n";
+    /* Running a module returns help */
+    return help + this->getHelp();
 }

@@ -27,7 +27,7 @@ set(SOURCES
     src/shell_env.cc
     src/shell_cmd.cc
     src/shell_module.cc
-    src/shell_runner.cc
+    src/shell_component.cc
     src/shell_app.cc
 )
 

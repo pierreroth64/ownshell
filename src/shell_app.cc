@@ -12,11 +12,11 @@
 #include <cstdlib>
 
 
-ShellApp::ShellApp(ShellEnv* env, std::string prompt, ShellRunner* runner)
+ShellApp::ShellApp(ShellEnv* env, std::string prompt, ShellComponent* root)
 {
     this->env = env;
     this->prompt = prompt;
-    this->runner = runner;
+    this->root = root;
     this->exit_cmd_set = 0;
     this->welcome_banner = "";
 }
@@ -24,12 +24,12 @@ ShellApp::ShellApp(ShellEnv* env, std::string prompt, ShellRunner* runner)
 std::string ShellApp::getGeneralHelp(void)
 {
     return "*** General help ***\n"\
-           "Commands must provide a <module> name and a <command> name such as:\n"\
+           "Commands must provide one (or more!) <module> name(s) and a <command> name such as:\n"\
            "    device list \n"\
-           "...when <module> is 'device' and <cmd> is 'list'\n\n"\
+           "    extra utilities gettime \n"\
+           "    datas set_output dev1 ON \n"\
            "To display module commands, type help <module>\n"\
            "To display command help, type help <module> <command>\n\n";
-
 }
 
 void ShellApp::displayPrompt(void)
@@ -84,19 +84,8 @@ void ShellApp::displayHelp(std::vector<std::string> tokens)
     int size = tokens.size();
 
     try {
-        if (size == 1) {
-            /* help was typed without any additional arg, display general help */
-            help = this->getGeneralHelp();
-            help += "Available modules are:\n";
-            help += this->runner->getAllModulesHelp();
-        } else if ( size == 2) {
-            /* help was typed with a module name and no additional arg */
-            help = this->runner->getAllModuleCmdsHelp(tokens[1]);
-            std::cout << "Available commands for module " << tokens[1] << ":" << std::endl;
-        } else if ( size >= 2) {
-            /* help was typed with a module name and a command name */
-            help = this->runner->getModuleCmdHelp(tokens[1], tokens[2]);
-        }
+        /* help was typed without any additional arg, display general help */
+        help = this->getGeneralHelp();
         std::cout << help << std::endl;
     } catch (shell_except& e) {
         this->displayError(e.what());
@@ -124,14 +113,10 @@ void ShellApp::loop(void)
             continue;
         }
 
-        /* It's a command, check for module and command name and run it! */
-        if (tokens.size() < 2 ) {
-            this->displayError("Number of args must be at least 2 (module and cmd names)");
-            continue;
-        }
 
         try {
-            this->runner->runCmd(tokens[0], tokens[1], (char **) 0, tokens.size() - 2);
+            // TODO find component and run it!
+            //this->runner->runCmd(tokens[0], tokens[1], (char **) 0, tokens.size() - 2);
         } catch (shell_except e) {
             this->displayError("command error");
         }

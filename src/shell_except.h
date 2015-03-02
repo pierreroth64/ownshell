@@ -30,4 +30,10 @@ class shell_except_already: public shell_except
     public:
         shell_except_already(const char *w): shell_except(w) {}
 };
+
+class shell_except_unsupported: public shell_except
+{
+    public:
+        shell_except_unsupported(const char *w): shell_except(w) {}
+};
 #endif

@@ -9,31 +9,29 @@
 #include <string>
 #include <list>
 #include "shell_env.h"
-#include "shell_cmd.h"
+#include "shell_component.h"
 
 /**
  *
- * A ShellModule embeds several shell commands
+ * A ShellModule is a composite (includes ShellComponents)
  */
 
-class ShellModule
+class ShellModule: public ShellComponent
 {
-    private:
-        ShellEnv* env;
-        std::string name;
-        std::string description;
-        std::list<ShellCmd* > commands;
     public:
-        ShellModule(ShellEnv* env, std::string name);
-        ShellModule(ShellEnv* env, std::string name, std::string description);
-        std::string getName(void);
-        void registerCmd(ShellCmd* cmd);
-        unsigned int getRegisteredCmdsNb(void);
-        ShellCmd* findCmdByName(std::string name);
-        std::string getHelp(void);
-        std::string getCmdHelp(std::string name);
-        std::string getAllCmdsHelp(void);
-        std::string runCmd(std::string name, char **argv, int argc);
+        ShellModule(ShellEnv* env, std::string name, std::string description) : ShellComponent(env, name, description){};
+        virtual ~ShellModule() {};
+
+        virtual std::string run(char** argv, int argc);
+        virtual std::string getHelp();
+
+        virtual void add(ShellComponent * component);
+        virtual void remove(ShellComponent * component);
+        unsigned int getComponentsNb(void);
+
+    private:
+        std::list<ShellComponent* > components;
+        virtual ShellComponent* findComponent(ShellComponent * component);
 };
 
 #endif
