@@ -13,7 +13,7 @@ class ShellModuleTest : public ::testing::Test {
         ShellModule* my_mod;
         virtual void SetUp(void) {
             this->env = new ShellEnv("my env");
-            this->my_mod = new ShellModule(env, "my module");
+            this->my_mod = new ShellModule(env, "my module", "description of my module");
         }
         virtual void TearDown(void) {
             delete this->my_mod;
@@ -22,86 +22,35 @@ class ShellModuleTest : public ::testing::Test {
 };
 
 
-TEST_F(ShellModuleTest, registerCmd) {
+TEST_F(ShellModuleTest, add) {
 
     MyShellCmd* my_cmd_1 = new MyShellCmd(this->env, "my command 1", "my command 1 description");
     MyShellCmd* my_cmd_2 = new MyShellCmd(this->env, "my command 2", "my command 2 description");
 
-    my_mod->registerCmd(my_cmd_1);
-    my_mod->registerCmd(my_cmd_2);
-    EXPECT_EQ(2, my_mod->getRegisteredCmdsNb());
-
-    delete my_cmd_1;
-    delete my_cmd_2;
-}
-
-TEST_F(ShellModuleTest, findCmdByName) {
-
-    MyShellCmd* my_cmd_1 = new MyShellCmd(this->env, "my command 1", "my command 1 description");
-    MyShellCmd* my_cmd_2 = new MyShellCmd(this->env, "my command 2", "my command 2 description");
-
-    my_mod->registerCmd(my_cmd_1);
-    my_mod->registerCmd(my_cmd_2);
-    my_mod->findCmdByName("my command 1");
-    ASSERT_THROW(my_mod->findCmdByName("unknown command"), shell_except_not_found);
+    my_mod->add(my_cmd_1);
+    my_mod->add(my_cmd_2);
+    EXPECT_EQ(2, my_mod->getComponentsNb());
 
     delete my_cmd_1;
     delete my_cmd_2;
 }
 
 
-TEST_F(ShellModuleTest, registerCmdAlready) {
+TEST_F(ShellModuleTest, addAlready) {
 
     MyShellCmd* my_cmd_1 = new MyShellCmd(this->env, "my command", "my command description");
     MyShellCmd* my_cmd_2 = new MyShellCmd(this->env, "my command", "same command name");
 
-    my_mod->registerCmd(my_cmd_1);
-    ASSERT_THROW(my_mod->registerCmd(my_cmd_2), shell_except_already);
+    my_mod->add(my_cmd_1);
+    ASSERT_THROW(my_mod->add(my_cmd_2), shell_except_already);
 
     delete my_cmd_1;
     delete my_cmd_2;
-}
-
-TEST_F(ShellModuleTest, runCmd) {
-
-    MyShellCmd* my_cmd_1 = new MyShellCmd(this->env, "my command 1", "my command 1 description");
-    MyShellCmd* my_cmd_2 = new MyShellCmd(this->env, "my command 2", "my command 2 description");
-
-    char *args[] = {"first", "second"};
-
-    my_mod->registerCmd(my_cmd_1);
-    my_mod->registerCmd(my_cmd_2);
-
-    EXPECT_EQ(0, my_cmd_1->lastArgNumber());
-    EXPECT_EQ(0, my_cmd_2->lastArgNumber());
-
-    my_mod->runCmd("my command 1", args, 2);
-    EXPECT_EQ(2, my_cmd_1->lastArgNumber());
-    EXPECT_EQ(0, my_cmd_2->lastArgNumber());
-
-    my_mod->runCmd("my command 2", args, 3);
-    EXPECT_EQ(3, my_cmd_2->lastArgNumber());
-
-    delete my_cmd_1;
-    delete my_cmd_2;
-}
-
-TEST_F(ShellModuleTest, runCmdUnknown) {
-
-    char *args[] = {"first", "second"};
-    ASSERT_THROW(my_mod->runCmd("unknown command", args, 2), shell_except_not_found);
 }
 
 TEST_F(ShellModuleTest, getHelp) {
 
-    ShellModule* mod_1 = new ShellModule(env, "mod1");
-    ShellModule* mod_2 = new ShellModule(env, "mod2", "with description");
-    EXPECT_EQ("", mod_1->getHelp());
-    EXPECT_EQ("with description", mod_2->getHelp());
-
-    MyShellCmd* cmd = new MyShellCmd(this->env, "my command", "my command description");
-    mod_1->registerCmd(cmd);
-    EXPECT_EQ("my command description", mod_1->getCmdHelp("my command"));
-    ASSERT_THROW(mod_1->getCmdHelp("unknown command"), shell_except_not_found);
-    ASSERT_THROW(mod_2->getCmdHelp("my command"), shell_except_not_found);
+    ShellModule* mod_1 = new ShellModule(env, "mod1", "mod1 description");
+    ShellModule* mod_2 = new ShellModule(env, "mod2", "mod2 description");
+    EXPECT_EQ("mod1 description", mod_1->getHelp());
 }

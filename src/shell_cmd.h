@@ -20,9 +20,9 @@ class ShellCmd: public ShellComponent
 {
     public:
         ShellCmd(ShellEnv* env, std::string name, std::string description) : ShellComponent(env, name, description){};
+        virtual ~ShellCmd(){};
         virtual std::string getHelp(void);
         virtual std::string run(char** argv, int argc);
-    private:
-        virtual ~ShellCmd(){};
+
 };
 #endif
