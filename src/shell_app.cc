@@ -12,7 +12,7 @@
 #include <cstdlib>
 
 
-ShellApp::ShellApp(ShellEnv* env, std::string prompt, ShellComponent* root)
+ShellApp::ShellApp(ShellEnv* env, string prompt, ShellComponent* root)
 {
     this->env = env;
     this->prompt = prompt;
@@ -21,7 +21,7 @@ ShellApp::ShellApp(ShellEnv* env, std::string prompt, ShellComponent* root)
     this->welcome_banner = "";
 }
 
-std::string ShellApp::getGeneralHelp(void)
+string ShellApp::getGeneralHelp(void)
 {
     return "*** General help ***\n"\
            "Commands must provide one (or more!) <module> name(s) and a <command> name such as:\n"\
@@ -34,43 +34,43 @@ std::string ShellApp::getGeneralHelp(void)
 
 void ShellApp::displayPrompt(void)
 {
-    std::cout << this->prompt << " " ;
+    cout << this->prompt << " " ;
 }
 
-void ShellApp::displayError(std::string error)
+void ShellApp::displayError(string error)
 {
-    std::cerr << "Error: " << error << std::endl ;
+    cerr << "Error: " << error << endl ;
 }
 
-void ShellApp::displayInfo(std::string msg)
+void ShellApp::displayInfo(string msg)
 {
-    std::cerr << msg << std::endl ;
+    cerr << msg << endl ;
 }
 
 void ShellApp::displayWelcomeBanner(void)
 {
     if (this->welcome_banner != "")
-        std::cout << this->welcome_banner << std::endl ;
+        cout << this->welcome_banner << endl ;
 }
 
-void ShellApp::setExitCommand(std::string name)
+void ShellApp::setExitCommand(string name)
 {
     this->exit_cmd = name;
     this->exit_cmd_set = 1;
 }
 
-void ShellApp::setWelcomeBanner(std::string banner)
+void ShellApp::setWelcomeBanner(string banner)
 {
     this->welcome_banner = banner;
 }
 
-std::vector<std::string> ShellApp::getCmdLineTokens(void)
+vector<string> ShellApp::getCmdLineTokens(void)
 {
-    std::string full_cmd;
-    std::getline(std::cin, full_cmd);
-    std::string buf;
-    std::stringstream ss(full_cmd);
-    std::vector<std::string> tokens;
+    string full_cmd;
+    getline(cin, full_cmd);
+    string buf;
+    stringstream ss(full_cmd);
+    vector<string> tokens;
 
     while (ss >> buf) {
         tokens.push_back(buf);
@@ -78,15 +78,15 @@ std::vector<std::string> ShellApp::getCmdLineTokens(void)
     return tokens;
 }
 
-void ShellApp::displayHelp(std::vector<std::string> tokens)
+void ShellApp::displayHelp(vector<string> tokens)
 {
-    std::string help;
+    string help;
     int size = tokens.size();
 
     try {
         /* help was typed without any additional arg, display general help */
         help = this->getGeneralHelp();
-        std::cout << help << std::endl;
+        cout << help << endl;
     } catch (shell_except& e) {
         this->displayError(e.what());
         this->displayInfo("Type help for general help");
@@ -101,7 +101,7 @@ void ShellApp::loop(void)
     while (1) {
 
         this->displayPrompt();
-        std::vector<std::string> tokens = this->getCmdLineTokens();
+        vector<string> tokens = this->getCmdLineTokens();
 
         /* Check for exit command */
         if (this->exit_cmd_set && (tokens.size() >= 1) && (tokens[0] == this->exit_cmd))

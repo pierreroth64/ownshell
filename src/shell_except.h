@@ -10,13 +10,15 @@
 
 #include <stdexcept>
 
+using namespace std;
+
 /**
   shell_except is the base class for all Shell library exceptions
 */
-class shell_except: public std::runtime_error
+class shell_except: public runtime_error
 {
     public:
-        shell_except(const char *w): std::runtime_error(w) {}
+        shell_except(const char *w): runtime_error(w) {}
 };
 
 class shell_except_not_found: public shell_except

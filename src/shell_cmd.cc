@@ -5,12 +5,12 @@
 
 #include "shell_cmd.h"
 
-std::string ShellCmd::getHelp(void)
+string ShellCmd::getHelp(void)
 {
     return this->getDescription();
 }
 
-std::string ShellCmd::run(char** argv, int argc)
+string ShellCmd::run(char** argv, int argc)
 {
     argv = argv;
     argc = argc;

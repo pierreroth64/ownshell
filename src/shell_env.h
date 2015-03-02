@@ -9,6 +9,8 @@
 #include <string>
 #include <list>
 
+using namespace std;
+
 class ShellEnvDataEntry;
 
 /**
@@ -18,13 +20,13 @@ class ShellEnvDataEntry;
 class ShellEnv
 {
     private:
-        std::list<ShellEnvDataEntry *> entries;
-        std::string name;
+        list<ShellEnvDataEntry *> entries;
+        string name;
     public:
-        ShellEnv(std::string name);
-        void addEntry(std::string name, void* entry);
-        void removeEntry(std::string name);
-        void * getEntry(std::string name);
+        ShellEnv(string name);
+        void addEntry(string name, void* entry);
+        void removeEntry(string name);
+        void * getEntry(string name);
         unsigned int getEntriesNumber(void);
 };
 #endif

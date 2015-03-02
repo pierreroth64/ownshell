@@ -11,6 +11,8 @@
 #include "shell_env.h"
 #include "shell_component.h"
 
+using namespace std;
+
 /**
  *
  * A ShellModule is a composite (includes ShellComponents)
@@ -19,18 +21,18 @@
 class ShellModule: public ShellComponent
 {
     public:
-        ShellModule(ShellEnv* env, std::string name, std::string description) : ShellComponent(env, name, description){};
+        ShellModule(ShellEnv* env, string name, string description) : ShellComponent(env, name, description){};
         virtual ~ShellModule() {};
 
-        virtual std::string run(char** argv, int argc);
-        virtual std::string getHelp();
+        virtual string run(char** argv, int argc);
+        virtual string getHelp();
 
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);
         unsigned int getComponentsNb(void);
 
     private:
-        std::list<ShellComponent* > components;
+        list<ShellComponent* > components;
         virtual ShellComponent* findComponent(ShellComponent * component);
 };
 

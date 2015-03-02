@@ -13,7 +13,7 @@ ShellComponent* ShellModule::findComponent(ShellComponent * component)
     if (component == 0)
         throw shell_except_not_found("Component not found");
 
-    for (std::list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
+    for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
         _component = (*it);
         if (_component->getName() == component->getName())
             return _component;
@@ -33,7 +33,7 @@ void ShellModule::add(ShellComponent* component)
 
 void ShellModule::remove(ShellComponent* component)
 {
-    for (std::list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ) {
+    for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ) {
         if ((*it)->getName() == component->getName()) {
             it = this->components.erase(it);
             break;
@@ -49,21 +49,21 @@ unsigned int ShellModule::getComponentsNb(void)
     return this->components.size();
 }
 
-std::string ShellModule::getHelp(void)
+string ShellModule::getHelp(void)
 {
     ShellComponent * component;
-    std::string help = "Module " + this->getHelp() + ":\n";
+    string help = "Module " + this->getHelp() + ":\n";
 
-    for (std::list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
+    for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
         component = (*it);
         help += "\t" + component->getName() + ": " + component->getHelp() + "\n";
     }
     return help;
 }
 
-std::string ShellModule::run(char** argv, int argc)
+string ShellModule::run(char** argv, int argc)
 {
-    std::string help = "You cannot run this module directly.\n\n";
+    string help = "You cannot run this module directly.\n\n";
     /* Running a module returns help */
     return help + this->getHelp();
 }

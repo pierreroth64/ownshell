@@ -9,31 +9,34 @@
 #include "shell_env.h"
 #include "shell_component.h"
 #include <vector>
+
+using namespace std;
+
 /**
  * A ShellApp implements an interactive shell
  */
 class ShellApp
 {
     public:
-        ShellApp(ShellEnv* env, std::string prompt, ShellComponent* root);
+        ShellApp(ShellEnv* env, string prompt, ShellComponent* root);
         void loop(void);
-        void setExitCommand(std::string name);
-        void setWelcomeBanner(std::string banner);
+        void setExitCommand(string name);
+        void setWelcomeBanner(string banner);
     private:
         ShellEnv* env;
         ShellComponent* root;
-        std::string welcome_banner;
-        std::string prompt;
-        std::string exit_cmd;
+        string welcome_banner;
+        string prompt;
+        string exit_cmd;
         bool exit_cmd_set;
 
         void displayWelcomeBanner(void);
         void displayPrompt(void);
-        void displayError(std::string error);
-        void displayInfo(std::string msg);
-        void displayHelp(std::vector<std::string> tokens);
-        std::string getGeneralHelp(void);
-        std::vector<std::string> getCmdLineTokens(void);
+        void displayError(string error);
+        void displayInfo(string msg);
+        void displayHelp(std::vector<string> tokens);
+        string getGeneralHelp(void);
+        vector<string> getCmdLineTokens(void);
 };
 
 #endif

@@ -10,6 +10,8 @@
 #include <list>
 #include "shell_env.h"
 
+using namespace std;
+
 /**
  *  ShellComponent is an interface for objects in the composition (ShellCmds and ShellModules)
  */
@@ -17,21 +19,21 @@
 class ShellComponent
 {
     public:
-        ShellComponent(ShellEnv* env, std::string name, std::string description);
+        ShellComponent(ShellEnv* env, string name, string description);
         virtual ~ShellComponent() {};
 
-        std::string getName();
-        virtual std::string run(char** argv, int argc);
-        virtual std::string getHelp();
+        string getName();
+        virtual string run(char** argv, int argc);
+        virtual string getHelp();
 
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);
         unsigned int getComponentsNb(void);
     protected:
-        std::string getDescription();
+        string getDescription();
     private:
         ShellEnv* env;
-        std::string name;
-        std::string description;
+        string name;
+        string description;
 };
 #endif

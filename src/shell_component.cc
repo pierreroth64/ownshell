@@ -6,24 +6,24 @@
 #include "shell_except.h"
 #include "shell_component.h"
 
-ShellComponent::ShellComponent(ShellEnv* env, std::string name, std::string description)
+ShellComponent::ShellComponent(ShellEnv* env, string name, string description)
 {
     this->env = env;
     this->name = name;
     this->description = description;
 }
 
-std::string ShellComponent::getName(void)
+string ShellComponent::getName(void)
 {
     return this->name;
 }
 
-std::string ShellComponent::getDescription(void)
+string ShellComponent::getDescription(void)
 {
     return this->description;
 }
 
-std::string ShellComponent::getHelp(void)
+string ShellComponent::getHelp(void)
 {
     return this->getDescription();
 }
@@ -45,7 +45,7 @@ void ShellComponent::remove(ShellComponent* component)
     throw shell_except_unsupported("Operation not supported");
 }
 
-std::string ShellComponent::run(char** argv, int argc)
+string ShellComponent::run(char** argv, int argc)
 {
     throw shell_except_unsupported("Operation not supported");
 }
