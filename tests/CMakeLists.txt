@@ -22,9 +22,9 @@ set(UNITTEST_FILES
 
 # libraries...
 # ... libshell
-set(LIBSHELL_ARCHIVE "${PROJECT_SOURCE_DIR}/../libshell.a")
-add_library(libshell STATIC IMPORTED)
-set_property(TARGET libshell PROPERTY IMPORTED_LOCATION ${LIBSHELL_ARCHIVE})
+set(OWNSHELL_ARCHIVE "${PROJECT_SOURCE_DIR}/../libownshell.a")
+add_library(libownshell STATIC IMPORTED)
+set_property(TARGET libownshell PROPERTY IMPORTED_LOCATION ${OWNSHELL_ARCHIVE})
 # ... libgtest
 set(LIBGTEST_ARCHIVE "${PROJECT_SOURCE_DIR}/libgtest/libgtest.a")
 add_library(libgtest STATIC IMPORTED)
@@ -33,5 +33,5 @@ set_property(TARGET libgtest PROPERTY IMPORTED_LOCATION ${LIBGTEST_ARCHIVE})
 # gtest framework needs the pthread lib
 set(PTHREAD_LINK_FLAG "-pthread")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${PTHREAD_LINK_FLAG}" )
-add_executable(shelllib_unittests.bin shelllib_unittests_main.cc ${UNITTEST_FILES})
-target_link_libraries(shelllib_unittests.bin libgtest libshell)
+add_executable(ownshelllib_unittests.bin ownshelllib_unittests_main.cc ${UNITTEST_FILES})
+target_link_libraries(ownshelllib_unittests.bin libgtest libownshell)

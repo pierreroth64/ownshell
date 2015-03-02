@@ -7,9 +7,9 @@ include_directories(${PROJECT_SOURCE_DIR}/../src)
 add_definitions(-Wall -Wextra)
 
 # reference libshell archive
-set(LIBSHELL_ARCHIVE "${PROJECT_SOURCE_DIR}/../libshell.a")
+set(OWNSHELL_ARCHIVE "${PROJECT_SOURCE_DIR}/../libshell.a")
 add_library(libshell STATIC IMPORTED)
-set_property(TARGET libshell PROPERTY IMPORTED_LOCATION ${LIBSHELL_ARCHIVE})
+set_property(TARGET libshell PROPERTY IMPORTED_LOCATION ${OWNSHELL_ARCHIVE})
 
 add_executable(my_shell.bin my_shell.cc)
 target_link_libraries(my_shell.bin libshell)
