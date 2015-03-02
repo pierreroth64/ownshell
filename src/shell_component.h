@@ -25,12 +25,11 @@ class ShellComponent
         string getName();
         virtual string run(char** argv, int argc);
         virtual string getHelp();
+        virtual string getDescription();
 
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);
         unsigned int getComponentsNb(void);
-    protected:
-        string getDescription();
     private:
         ShellEnv* env;
         string name;

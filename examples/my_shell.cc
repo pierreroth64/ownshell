@@ -7,19 +7,19 @@
 #include <cstdlib>
 #include "shell.h"
 
-#if 0
 /* My concrete shell command */
 class MyShellCmd : public ShellCmd {
     public:
         virtual std::string run(char** argv, int argc);
 };
+
 std::string MyShellCmd::run(char** argv, int argc)
 {
     argv = argv;
     std::cout << "Hello called with " << argc << " arguments" << std::endl;
     return "Hello result";
 }
-#endif
+
 int main(void) {
 
     /* Create environment for your shell */
@@ -31,7 +31,6 @@ int main(void) {
     /* Create a module and register the command */
     ShellModule* my_mod = new ShellModule(env, "newbie", "newbie commands");
     my_mod->add(my_cmd);
-
 
     /* Start your shell application */
     ShellApp* my_shell = new ShellApp(env, "my_shell>", (ShellComponent *) my_mod);

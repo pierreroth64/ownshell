@@ -95,6 +95,16 @@ void ShellApp::displayHelp(vector<string> tokens)
     };
 }
 
+void ShellApp::findComponentAndArgsFromTokens(vector<string> tokens, ShellComponent** component, vector<string> * args)
+{
+    /* from given tokens:
+     *  - find the corresponding ShellComponent
+     *  - find the args */
+
+     throw shell_except_not_found("Component not found");
+
+}
+
 void ShellApp::loop(void)
 {
     this->displayWelcomeBanner();
@@ -113,8 +123,11 @@ void ShellApp::loop(void)
             continue;
         }
 
-
         try {
+            //ShellComponent * component;
+            //vector<string> args;
+            //this->findComponentAndArgsFromTokens(tokens, &component, &args);
+            //component->run(tokens)
             // TODO find component and run it!
             //this->runner->runCmd(tokens[0], tokens[1], (char **) 0, tokens.size() - 2);
         } catch (shell_except e) {

@@ -22,6 +22,7 @@ class ShellApp
         void loop(void);
         void setExitCommand(string name);
         void setWelcomeBanner(string banner);
+        void findComponentAndArgsFromTokens(vector<string> tokens, ShellComponent** component, vector<string> * args);
     private:
         ShellEnv* env;
         ShellComponent* root;

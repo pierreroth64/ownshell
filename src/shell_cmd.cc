@@ -7,7 +7,7 @@
 
 string ShellCmd::getHelp(void)
 {
-    return this->getDescription();
+    return this->detailed_help;
 }
 
 string ShellCmd::run(char** argv, int argc)

@@ -50,7 +50,19 @@ TEST_F(ShellModuleTest, addAlready) {
 
 TEST_F(ShellModuleTest, getHelp) {
 
-    ShellModule* mod_1 = new ShellModule(env, "mod1", "mod1 description");
-    ShellModule* mod_2 = new ShellModule(env, "mod2", "mod2 description");
-    EXPECT_EQ("mod1 description", mod_1->getHelp());
+    ShellModule* mod = new ShellModule(env, "mod", "mod description");
+    EXPECT_EQ("mod description", mod->getHelp());
+}
+
+TEST_F(ShellModuleTest, getHelpMultiple) {
+
+    ShellModule* mod = new ShellModule(env, "mod", "mod description");
+    ShellModule* sub_mod = new ShellModule(env, "sub mod", "sub mod description");
+    mod->add(sub_mod);
+    EXPECT_EQ("mod description\n\nComponents:\n\t-sub mod: sub mod description\n", mod->getHelp());
+
+    /* if we add a sub command to sub_mod leading "-" is changed to "+" */
+    ShellCmd* cmd = new ShellCmd(env, "cmd", "cmd description");
+    sub_mod->add(cmd);
+    EXPECT_EQ("mod description\n\nComponents:\n\t+sub mod: sub mod description\n", mod->getHelp());
 }

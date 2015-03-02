@@ -52,11 +52,18 @@ unsigned int ShellModule::getComponentsNb(void)
 string ShellModule::getHelp(void)
 {
     ShellComponent * component;
-    string help = "Module " + this->getHelp() + ":\n";
+    string help = this->getDescription();
 
+    if (this->components.size()) {
+        help += "\n\nComponents:\n";
+    }
     for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
         component = (*it);
-        help += "\t" + component->getName() + ": " + component->getHelp() + "\n";
+        if (component->getComponentsNb())
+            help += "\t+";
+        else
+            help += "\t-";
+        help += component->getName() + ": " + component->getDescription() + "\n";
     }
     return help;
 }

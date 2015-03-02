@@ -21,10 +21,12 @@ using namespace std;
 class ShellCmd: public ShellComponent
 {
     public:
-        ShellCmd(ShellEnv* env, string name, string description) : ShellComponent(env, name, description){};
+        ShellCmd(ShellEnv* env, string name, string description, string help = "") : ShellComponent(env, name, description) { this->detailed_help = help; };
         virtual ~ShellCmd(){};
         virtual string getHelp(void);
         virtual string run(char** argv, int argc);
+    private:
+        string detailed_help;
 
 };
 #endif
