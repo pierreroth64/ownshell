@@ -21,7 +21,6 @@ class ShellModuleTest : public ::testing::Test {
         }
 };
 
-
 TEST_F(ShellModuleTest, add) {
 
     MyShellCmd* my_cmd_1 = new MyShellCmd(this->env, "my command 1", "my command 1 description");
@@ -34,7 +33,6 @@ TEST_F(ShellModuleTest, add) {
     delete my_cmd_1;
     delete my_cmd_2;
 }
-
 
 TEST_F(ShellModuleTest, addAlready) {
 

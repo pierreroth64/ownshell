@@ -29,7 +29,7 @@ class ShellComponent
 
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);
-        unsigned int getComponentsNb(void);
+        virtual unsigned int getComponentsNb(void);
     private:
         ShellEnv* env;
         string name;

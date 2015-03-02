@@ -54,7 +54,7 @@ string ShellModule::getHelp(void)
     ShellComponent * component;
     string help = this->getDescription();
 
-    if (this->components.size()) {
+    if (component->getComponentsNb()) {
         help += "\n\nComponents:\n";
     }
     for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
