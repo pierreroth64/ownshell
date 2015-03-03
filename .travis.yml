@@ -3,7 +3,7 @@ compiler:
   - gcc
 env:
   global:
-    - GCC_VERSION="4.8"
+    - GCC_VERSION="4.6"
 before_install:
   - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
 install:
