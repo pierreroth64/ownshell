@@ -10,6 +10,7 @@
 
 #include "shell_except.h"
 #include "shell_env.h"
+#include "shell_info.h"
 #include "shell_cmd.h"
 #include "shell_module.h"
 #include "shell_app.h"

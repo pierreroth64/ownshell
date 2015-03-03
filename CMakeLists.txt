@@ -29,11 +29,12 @@ set(SOURCES
     src/shell_module.cc
     src/shell_component.cc
     src/shell_app.cc
+    src/shell_info.cc
 )
 
 set(OWNSHELL_NAME "\"ownShell Library\"")
 set(OWNSHELL_VERSION_MAJOR 0)
-set(OWNSHELL_VERSION_MINOR 3)
+set(OWNSHELL_VERSION_MINOR 1)
 set(OWNSHELL_VERSION_PATCH 0)
 set(OWNSHELL_VERSION_EXTRA_RAW -dev)
 set(OWNSHELL_VERSION_EXTRA "\"${LIBSHELL_VERSION_EXTRA_RAW}\"")
@@ -42,8 +43,8 @@ set(OWNSHELL_VERSION_FULL ${LIBSHELL_VERSION_MAJOR}.${LIBSHELL_VERSION_MINOR}.${
 set(OWNSHELL_COPYRIGHT "\"Copyright 2015 Peio Roth\"")
 
 configure_file (
-  "${PROJECT_SOURCE_DIR}/src/shell_info.h.in"
-  "${PROJECT_SOURCE_DIR}/src/shell_info.h_generated"
+  "${PROJECT_SOURCE_DIR}/src/shell_info_defines.h.in"
+  "${PROJECT_SOURCE_DIR}/src/shell_info_defines.h_generated"
   )
 
 add_library(ownshell ${SOURCES})

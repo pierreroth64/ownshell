@@ -56,7 +56,9 @@ int main(void) {
     /* Start your shell application */
     ShellApp* my_shell = new ShellApp(env, "my_shell>", mod_newbie);
     my_shell->setExitCommand("exit");
-    my_shell->setWelcomeBanner("Welcome to my simple shell");
+    string banner = "Welcome to simple shell";
+    banner += " (based on " + ShellInfo::getName() + " - " + ShellInfo::getVersion() + ")\n";
+    my_shell->setWelcomeBanner(banner);
     my_shell->loop();
 
     exit(0);
