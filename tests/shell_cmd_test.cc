@@ -8,11 +8,10 @@
 #include "gtest/gtest.h"
 #include "shell_cmd_test.h"
 
-std::string MyShellCmd::run(char** argv, int argc)
+std::string MyShellCmd::run(vector<string> args)
 {
     this->was_called = 1;
-    this->arg_nb = argc;
-    argv = argv;
+    this->arg_nb = args.size();
     return "yeah!";
 }
 

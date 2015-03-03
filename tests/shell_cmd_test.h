@@ -7,6 +7,9 @@
 
 #include "gtest/gtest.h"
 #include "ownshell.h"
+#include <vector>
+
+using namespace std;
 
 /* Shell command concrete class for testing */
 class MyShellCmd : public ShellCmd {
@@ -17,7 +20,7 @@ class MyShellCmd : public ShellCmd {
         };
         bool was_called;
         unsigned int arg_nb;
-        virtual std::string run(char** argv, int argc);
+        virtual string run(vector<string> args);
         void reset(void);
         int lastArgNumber(void);
 };

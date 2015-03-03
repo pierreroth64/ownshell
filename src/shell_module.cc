@@ -10,8 +10,6 @@
 
 ShellComponent* ShellModule::findComponent(ShellComponent * component)
 {
-    ShellComponent * _component;
-
     if (component == 0)
         throw shell_except_not_found("Component not found");
 

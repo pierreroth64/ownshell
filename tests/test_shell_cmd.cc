@@ -29,8 +29,8 @@ TEST_F(ShellCmdTest, run) {
 
     EXPECT_EQ(0, my_cmd->was_called);
     EXPECT_EQ(0, my_cmd->arg_nb);
-    char *args[] = {"first", "second"};
-    my_cmd->run(args, 2);
+    vector<string> args {"first", "second"};
+    my_cmd->run(args);
     EXPECT_EQ(1, my_cmd->was_called);
     EXPECT_EQ(2, my_cmd->arg_nb);
 }
