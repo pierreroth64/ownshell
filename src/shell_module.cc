@@ -80,14 +80,14 @@ string ShellModule::getHelp(void)
     string help = this->getDescription();
 
     if (this->getComponentsNb()) {
-        help += "\n\nComponents:\n";
+        help += "\n\nModules ([+]) and commands:\n";
     }
     for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
         component = (*it);
         if (component->getComponentsNb())
-            help += "\t+";
+            help += "\t[+] ";
         else
-            help += "\t-";
+            help += "\t  - ";
         help += component->getName() + ": " + component->getDescription() + "\n";
     }
     return help;
