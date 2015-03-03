@@ -47,7 +47,6 @@ TEST_F(ShellModuleTest, addAlready) {
     delete my_cmd_1;
     delete my_cmd_2;
 }
-
 TEST_F(ShellModuleTest, getHelp) {
 
     ShellModule* mod = new ShellModule(env, "mod", "mod description");
