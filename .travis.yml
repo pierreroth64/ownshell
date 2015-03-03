@@ -13,6 +13,7 @@ install:
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq "g++-${GCC_VERSION}"; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-${GCC_VERSION}" CC="gcc-${GCC_VERSION}"; fi
 script:
+  - cmake --version
   - cmake . -G"Unix Makefiles" -DCMAKE_CXX_COMPILER=$(which $CXX)
   - make
   - make test
