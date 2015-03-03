@@ -133,7 +133,10 @@ void ShellApp::loop(void)
 
         try {
             ShellComponent* component = this->root->findComponentFromTokens(tokens);
-            component->run(NULL, 0);
+            /* We now need to separate args from module(s)/cmd path
+             * Just play with number of parents */
+            unsigned int nb = component->getParentsNb();
+            component->run(tokens);
         } catch (shell_except e) {
             this->displayError("command error");
         }

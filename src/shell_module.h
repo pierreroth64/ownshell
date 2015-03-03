@@ -26,7 +26,7 @@ class ShellModule: public ShellComponent
         ShellModule(ShellEnv* env, string name, string description) : ShellComponent(env, name, description){};
         virtual ~ShellModule() {};
 
-        virtual string run(char** argv, int argc);
+        virtual string run(vector<string> args);
         virtual string getHelp();
 
         virtual void add(ShellComponent * component);

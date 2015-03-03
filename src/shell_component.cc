@@ -60,8 +60,9 @@ ShellComponent* ShellComponent::findComponentByName(string name)
     throw shell_except_not_found("Component not found");
 }
 
-string ShellComponent::run(char** argv, int argc)
+string ShellComponent::run(vector<string> args)
 {
+    args = args;
     throw shell_except_unsupported("Operation not supported");
 }
 

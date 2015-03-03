@@ -12,9 +12,8 @@ string ShellCmd::getHelp(void)
     return this->detailed_help;
 }
 
-string ShellCmd::run(char** argv, int argc)
+string ShellCmd::run(vector<string> args)
 {
-    argv = argv;
-    argc = argc;
+    args = args;
     return "";
 }

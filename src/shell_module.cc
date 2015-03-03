@@ -95,8 +95,9 @@ string ShellModule::getHelp(void)
     return help;
 }
 
-string ShellModule::run(char** argv, int argc)
+string ShellModule::run(vector<string> args)
 {
+    args = args;
     string help = "You cannot run this module directly.\n\n";
     /* Running a module returns help */
     return help + this->getHelp();

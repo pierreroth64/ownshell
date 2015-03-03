@@ -26,7 +26,7 @@ class ShellComponent
         virtual ~ShellComponent() {};
 
         string getName();
-        virtual string run(char** argv, int argc);
+        virtual string run(vector<string> args);
         virtual string getHelp();
         virtual string getDescription();
 
