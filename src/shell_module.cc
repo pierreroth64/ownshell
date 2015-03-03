@@ -53,7 +53,7 @@ void ShellModule::add(ShellComponent* component)
         throw shell_except_already("Component with such a name already exists");
     } catch (shell_except_not_found e) {
         this->components.push_back(component);
-        setParent(this);
+        component->setParent(this);
     }
 }
 
@@ -61,8 +61,8 @@ void ShellModule::remove(ShellComponent* component)
 {
     for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ) {
         if ((*it)->getName() == component->getName()) {
+            component->setParent(NULL);
             it = this->components.erase(it);
-            setParent(NULL);
             break;
         } else {
             ++it;

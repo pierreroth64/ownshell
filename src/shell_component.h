@@ -36,6 +36,7 @@ class ShellComponent
         virtual ShellComponent* findComponentByName(string name);
         virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
         void setParent(ShellComponent* parent) { this->parent = parent; };
+        unsigned int getParentsNb(void);
     protected:
         ShellComponent* parent;
     private:

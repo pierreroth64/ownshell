@@ -13,6 +13,7 @@ ShellComponent::ShellComponent(ShellEnv* env, string name, string description)
     this->env = env;
     this->name = name;
     this->description = description;
+    this->parent = NULL;
 }
 
 string ShellComponent::getName(void)
@@ -62,4 +63,13 @@ ShellComponent* ShellComponent::findComponentByName(string name)
 string ShellComponent::run(char** argv, int argc)
 {
     throw shell_except_unsupported("Operation not supported");
+}
+
+unsigned int ShellComponent::getParentsNb()
+{
+    if (!this->parent) {
+        return 0;
+    } else {
+        return this->parent->getParentsNb() + 1;
+    }
 }

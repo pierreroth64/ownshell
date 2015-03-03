@@ -120,8 +120,10 @@ TEST_F(ShellModuleComplexTest, findComponentFromTokens) {
 
     component = this->root->findComponentFromTokens(tokens);
     EXPECT_EQ("root/mod 3/mod 2/mod 4 description", component->getDescription());
+    EXPECT_EQ(3, component->getParentsNb());
 
     vector<string> other_tokens {"mod 3", "mod 2", "mod 4", "command 1"};
     component = this->root->findComponentFromTokens(other_tokens);
     EXPECT_EQ("root/mod 3/mod 2/mod 4/command 1 help", component->getDescription());
+    EXPECT_EQ(4, component->getParentsNb());
 }
