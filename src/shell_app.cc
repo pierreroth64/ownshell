@@ -137,7 +137,7 @@ void ShellApp::loop(void)
              * Just play with number of parents */
             unsigned int nb = component->getParentsNb();
             vector<string> args(tokens.begin() + nb, tokens.end());
-            component->run(args);
+            cout << component->run(args) << endl;
         } catch (shell_except e) {
             this->displayError("command error");
         }
