@@ -7,6 +7,7 @@
 
 #include "shell_except.h"
 #include "shell_app.h"
+#include "shell_module.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -17,11 +18,18 @@ ShellApp::ShellApp(ShellEnv* env, string prompt, ShellComponent* root)
 {
     this->env = env;
     this->prompt = prompt;
-    this->root = root;
-    this->exit_cmd_set = 0;
+    this->root = new ShellModule(env, "/", "");
+    this->root->add(root);
+    this->exit_cmd = "exit";
+    this->help_cmd = "help";
     this->welcome_banner = "";
 }
 
+ShellApp::~ShellApp()
+{
+    if (this->root)
+        delete this->root;
+}
 string ShellApp::getGeneralHelp(void)
 {
     return "*** General help ***\n"\
@@ -57,7 +65,11 @@ void ShellApp::displayWelcomeBanner(void)
 void ShellApp::setExitCommand(string name)
 {
     this->exit_cmd = name;
-    this->exit_cmd_set = 1;
+}
+
+void ShellApp::setHelpCommand(string name)
+{
+    this->help_cmd = name;
 }
 
 void ShellApp::setWelcomeBanner(string banner)
@@ -82,28 +94,23 @@ vector<string> ShellApp::getCmdLineTokens(void)
 void ShellApp::displayHelp(vector<string> tokens)
 {
     string help;
-    int size = tokens.size();
+    ShellComponent* component;
 
-    try {
-        /* help was typed without any additional arg, display general help */
+    /* help was typed without any additional arg, display general help */
+    if (tokens.size() == 1)
         help = this->getGeneralHelp();
-        cout << help << endl;
-    } catch (shell_except& e) {
-        this->displayError(e.what());
-        this->displayInfo("Type help for general help");
-    } catch (...) {
-        this->displayError("help not found. Type help for general help");
-    };
-}
-
-void ShellApp::findComponentAndArgsFromTokens(vector<string> tokens, ShellComponent** component, vector<string> * args)
-{
-    /* from given tokens:
-     *  - find the corresponding ShellComponent
-     *  - find the args */
-
-     throw shell_except_not_found("Component not found");
-
+    else {
+        try {
+            component = this->root->findComponentFromTokens(tokens);
+            help = component->getHelp();
+        } catch (shell_except& e) {
+            this->displayError(e.what());
+            this->displayInfo("Type help for general help");
+        } catch (...) {
+            this->displayError("help not found. Type help for general help");
+        };
+    }
+    cout << help << endl;
 }
 
 void ShellApp::loop(void)
@@ -115,22 +122,18 @@ void ShellApp::loop(void)
         vector<string> tokens = this->getCmdLineTokens();
 
         /* Check for exit command */
-        if (this->exit_cmd_set && (tokens.size() >= 1) && (tokens[0] == this->exit_cmd))
+        if ((tokens.size() >= 1) && (tokens[0] == this->exit_cmd))
             exit(0);
 
         /* Check for help commands */
-        if ((tokens.size() >= 1) && (tokens[0] == "help")) {
+        if ((tokens.size() >= 1) && (tokens[0] == this->help_cmd)) {
             this->displayHelp(tokens);
             continue;
         }
 
         try {
-            //ShellComponent * component;
-            //vector<string> args;
-            //this->findComponentAndArgsFromTokens(tokens, &component, &args);
-            //component->run(tokens)
-            // TODO find component and run it!
-            //this->runner->runCmd(tokens[0], tokens[1], (char **) 0, tokens.size() - 2);
+            ShellComponent* component = this->root->findComponentFromTokens(tokens);
+            component->run(NULL, 0);
         } catch (shell_except e) {
             this->displayError("command error");
         }

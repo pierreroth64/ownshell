@@ -21,17 +21,19 @@ class ShellApp
 {
     public:
         ShellApp(ShellEnv* env, string prompt, ShellComponent* root);
+        ~ShellApp();
         void loop(void);
         void setExitCommand(string name);
+        void setHelpCommand(string name);
         void setWelcomeBanner(string banner);
-        void findComponentAndArgsFromTokens(vector<string> tokens, ShellComponent** component, vector<string> * args);
+
     private:
         ShellEnv* env;
         ShellComponent* root;
         string welcome_banner;
         string prompt;
         string exit_cmd;
-        bool exit_cmd_set;
+        string help_cmd;
 
         void displayWelcomeBanner(void);
         void displayPrompt(void);

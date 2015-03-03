@@ -32,7 +32,8 @@ class ShellModule: public ShellComponent
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);
         unsigned int getComponentsNb(void);
-
+        virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
+        virtual ShellComponent* findComponentByName(string name);
     private:
         list<ShellComponent* > components;
         virtual ShellComponent* findComponent(ShellComponent * component);

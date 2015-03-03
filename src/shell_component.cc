@@ -47,6 +47,18 @@ void ShellComponent::remove(ShellComponent* component)
     throw shell_except_unsupported("Operation not supported");
 }
 
+ShellComponent* ShellComponent::findComponentFromTokens(vector<string> tokens)
+{
+    tokens = tokens;
+    throw shell_except_not_found("Component not found");
+}
+
+ShellComponent* ShellComponent::findComponentByName(string name)
+{
+    name = name;
+    throw shell_except_not_found("Component not found");
+}
+
 string ShellComponent::run(char** argv, int argc)
 {
     throw shell_except_unsupported("Operation not supported");

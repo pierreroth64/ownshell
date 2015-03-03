@@ -15,11 +15,34 @@ ShellComponent* ShellModule::findComponent(ShellComponent * component)
     if (component == 0)
         throw shell_except_not_found("Component not found");
 
+    return this->findComponentByName(component->getName());
+}
+
+ShellComponent* ShellModule::findComponentByName(string name)
+{
+    ShellComponent* _component;
     for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
         _component = (*it);
-        if (_component->getName() == component->getName())
-            return _component;
+        if (_component->getName() == name)
+             return _component;
     }
+    throw shell_except_not_found("Component not found");
+}
+
+ShellComponent* ShellModule::findComponentFromTokens(vector<string> tokens)
+{
+    ShellComponent* last_found = this;
+    string name;
+    for(std::vector<string>::iterator it = tokens.begin(); it != tokens.end(); ++it) {
+        name = *it;
+        try {
+            last_found = last_found->findComponentByName(name);
+        } catch (shell_except_not_found e) {
+
+        }
+    }
+    if (last_found != this)
+        return last_found;
     throw shell_except_not_found("Component not found");
 }
 
