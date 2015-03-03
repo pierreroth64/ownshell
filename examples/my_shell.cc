@@ -9,16 +9,23 @@
 #include <cstdlib>
 #include "shell.h"
 
+using namespace std;
+
 /* My concrete shell command */
 class MyShellCmd : public ShellCmd {
     public:
-        virtual std::string run(char** argv, int argc);
+        MyShellCmd(ShellEnv* env, std::string name, std::string description):  ShellCmd(env, name, description) {};
+        virtual string run(vector<string> args);
 };
 
-std::string MyShellCmd::run(char** argv, int argc)
+string MyShellCmd::run(vector<string> args)
 {
-    argv = argv;
-    std::cout << "Hello called with " << argc << " arguments" << std::endl;
+    cout << "Hello called with " << args.size() << " arguments" << endl;
+    cout << "Args: ";
+    for(vector<string>::iterator it = args.begin(); it != args.end(); ++it) {
+        cout << *it << " ";
+    }
+    cout << endl;
     return "Hello result";
 }
 
@@ -28,7 +35,7 @@ int main(void) {
     ShellEnv* env = new ShellEnv("my environment");
 
     /* Create a command */
-    ShellCmd* my_cmd = new ShellCmd(env, "hello", "displays a Hello string on output");
+    ShellCmd* my_cmd = new MyShellCmd(env, "hello", "displays a Hello string on output");
 
     /* Create a module and register the command */
     ShellModule* my_mod = new ShellModule(env, "newbie", "newbie commands");

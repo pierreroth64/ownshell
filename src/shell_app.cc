@@ -136,7 +136,8 @@ void ShellApp::loop(void)
             /* We now need to separate args from module(s)/cmd path
              * Just play with number of parents */
             unsigned int nb = component->getParentsNb();
-            component->run(tokens);
+            vector<string> args(tokens.begin() + nb, tokens.end());
+            component->run(args);
         } catch (shell_except e) {
             this->displayError("command error");
         }
