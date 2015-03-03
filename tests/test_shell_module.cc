@@ -127,3 +127,12 @@ TEST_F(ShellModuleComplexTest, findComponentFromTokens) {
     EXPECT_EQ("root/mod 3/mod 2/mod 4/command 1 help", component->getDescription());
     EXPECT_EQ(4, component->getParentsNb());
 }
+
+TEST_F(ShellModuleComplexTest, run) {
+
+    ShellComponent* component;
+    vector<string> tokens {"mod 3", "mod 2", "mod 4"};
+    component = this->root->findComponentFromTokens(tokens);
+    vector<string> args {"first", "second"};
+    EXPECT_EQ("You cannot run this module directly.\n\nroot/mod 3/mod 2/mod 4 description\n\nModules ([+]) and commands:\n\t  - command 1: root/mod 3/mod 2/mod 4/command 1 help\n\t  - command 3: root/mod 3/mod 2/mod 4/command 3 help\n\t  - command 4: root/mod 3/mod 2/mod 4/command 4 help\n", component->run(args));
+}
