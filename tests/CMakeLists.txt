@@ -1,10 +1,3 @@
-# Copyright (C) 2015 Legrand
-# All rights reserved
-#
-# CCTV Library
-
-# cmake file for shelllin unittests
-
 cmake_minimum_required(VERSION 2.8)
 project(shelllib_unittests)
 

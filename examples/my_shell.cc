@@ -1,7 +1,9 @@
-/* Copyright (C) 2015 Legrand
-   All rights reserved
-
-   CCTV Library */
+/* Copyright (C) 2015 the ownShell authors and contributors
+ * <see AUTHORS file>
+ *
+ * This module is part of ownShell and is released under
+ * the MIT License: http://www.opensource.org/licenses/mit-license.php
+*/
 
 #include <iostream>
 #include <cstdlib>
