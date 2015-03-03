@@ -5,8 +5,8 @@
  * the MIT License: http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef _SHELL_LIB_I_APP_H
-#define _SHELL_LIB_I_APP_H
+#ifndef _OWNSHELL_I_APP_H
+#define _OWNSHELL_I_APP_H
 
 #include "shell_env.h"
 #include "shell_component.h"

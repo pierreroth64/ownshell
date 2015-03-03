@@ -5,8 +5,8 @@
  * the MIT License: http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef _SHELL_LIB_I_MODULE_H
-#define _SHELL_LIB_I_MODULE_H
+#ifndef _OWNSHELL_I_MODULE_H
+#define _OWNSHELL_I_MODULE_H
 
 #include <string>
 #include <list>
