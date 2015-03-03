@@ -32,6 +32,9 @@ class ShellComponent
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);
         virtual unsigned int getComponentsNb(void);
+        void setParent(ShellComponent* parent) { this->parent = parent; };
+    protected:
+        ShellComponent* parent;
     private:
         ShellEnv* env;
         string name;
