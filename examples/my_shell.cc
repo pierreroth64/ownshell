@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <cstdlib>
-#include "shell.h"
+#include "ownshell.h"
 
 using namespace std;
 

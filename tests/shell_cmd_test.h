@@ -6,7 +6,7 @@
 */
 
 #include "gtest/gtest.h"
-#include "shell.h"
+#include "ownshell.h"
 
 /* Shell command concrete class for testing */
 class MyShellCmd : public ShellCmd {

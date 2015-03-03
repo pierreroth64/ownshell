@@ -6,7 +6,7 @@
 */
 
 #include "gtest/gtest.h"
-#include "shell.h"
+#include "ownshell.h"
 
 class ShellEnvTest : public ::testing::Test {
     protected:

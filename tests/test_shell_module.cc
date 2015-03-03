@@ -6,7 +6,7 @@
 */
 
 #include "gtest/gtest.h"
-#include "shell.h"
+#include "ownshell.h"
 #include "shell_cmd_test.h"
 
 class ShellModuleTest : public ::testing::Test {

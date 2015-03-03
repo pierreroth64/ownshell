@@ -6,7 +6,6 @@
 */
 
 #include "gtest/gtest.h"
-#include "shell.h"
 #include "shell_cmd_test.h"
 
 std::string MyShellCmd::run(char** argv, int argc)
