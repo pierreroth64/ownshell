@@ -39,8 +39,8 @@ class ShellComponent
         unsigned int getParentsNb(void);
     protected:
         ShellComponent* parent;
-    private:
         ShellEnv* env;
+    private:
         string name;
         string description;
 };
