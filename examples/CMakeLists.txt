@@ -20,3 +20,7 @@ target_link_libraries(simple_shell.bin libownshell)
 # hooked shell
 add_executable(hooked_shell.bin hooked_shell.cc)
 target_link_libraries(hooked_shell.bin libownshell)
+
+# env shell
+add_executable(env_shell.bin env_shell.cc)
+target_link_libraries(env_shell.bin libownshell)
