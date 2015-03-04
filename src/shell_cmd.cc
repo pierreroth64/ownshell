@@ -7,6 +7,8 @@
 
 #include "shell_cmd.h"
 
+namespace ownshell {
+
 string ShellCmd::getHelp(void)
 {
     return this->detailed_help;
@@ -17,3 +19,5 @@ string ShellCmd::run(vector<string> args)
     args = args;
     return "";
 }
+
+} // namespace ownshell

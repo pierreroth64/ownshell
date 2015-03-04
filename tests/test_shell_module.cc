@@ -9,6 +9,8 @@
 #include "ownshell.h"
 #include "shell_cmd_test.h"
 
+using namespace ownshell;
+
 class ShellModuleTest : public ::testing::Test {
     protected:
         ShellEnv* env;

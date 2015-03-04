@@ -8,6 +8,8 @@
 #include "gtest/gtest.h"
 #include "ownshell.h"
 
+using namespace ownshell;
+
 class ShellEnvTest : public ::testing::Test {
     protected:
         ShellEnv* env = new ShellEnv("my env");

@@ -9,6 +9,9 @@
 #include <cstdlib>
 #include "ownshell.h"
 
+using namespace ownshell;
+using namespace std;
+
 /* This Hooked Shell shows how to hook into the shell application
  *
  * Once in shell:
@@ -17,8 +20,6 @@
  * hooked> unknown        ----> shows your on_critical hook
  * hooked> help unknown   ----> shows your on_error and on_info hook
  * */
-
-using namespace std;
 
 class MyShellSuccessCmd : public ShellCmd {
     public:

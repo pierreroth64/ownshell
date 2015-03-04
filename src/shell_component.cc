@@ -8,6 +8,8 @@
 #include "shell_except.h"
 #include "shell_component.h"
 
+namespace ownshell {
+
 ShellComponent::ShellComponent(ShellEnv* env, string name, string description)
 {
     this->env = env;
@@ -74,3 +76,5 @@ unsigned int ShellComponent::getParentsNb()
         return this->parent->getParentsNb() + 1;
     }
 }
+
+} // namespace ownshell

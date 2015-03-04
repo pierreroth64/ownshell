@@ -14,6 +14,8 @@
 #include <sstream>
 #include <cstdlib>
 
+namespace ownshell {
+
 class DefaultShellHooks: public ShellHooks
 {
     public:
@@ -166,3 +168,5 @@ void ShellApp::loop(void)
         }
     };
 }
+
+} // namespace ownshell

@@ -15,6 +15,8 @@
 
 using namespace std;
 
+namespace ownshell {
+
 /**
  *
  * A ShellModule is a composite (includes ShellComponents)
@@ -39,4 +41,5 @@ class ShellModule: public ShellComponent
         virtual ShellComponent* findComponent(ShellComponent * component);
 };
 
+} // namespace ownshell
 #endif

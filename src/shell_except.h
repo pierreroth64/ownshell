@@ -12,6 +12,8 @@
 
 using namespace std;
 
+namespace ownshell {
+
 /**
   shell_except is the base class for all Shell library exceptions
 */
@@ -38,4 +40,6 @@ class shell_except_unsupported: public shell_except
     public:
         shell_except_unsupported(const char *w): shell_except(w) {}
 };
+
+} //namespace ownshell
 #endif

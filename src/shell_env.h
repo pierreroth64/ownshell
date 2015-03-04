@@ -13,6 +13,8 @@
 
 using namespace std;
 
+namespace ownshell {
+
 class ShellEnvDataEntry;
 
 /**
@@ -31,4 +33,6 @@ class ShellEnv
         void * getEntry(string name);
         unsigned int getEntriesNumber(void);
 };
+
+} // namespace ownshell
 #endif

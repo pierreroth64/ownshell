@@ -15,6 +15,8 @@
 
 using namespace std;
 
+namespace ownshell {
+
 /**
  *  ShellComponent is an interface for objects in the composition (ShellCmds and ShellModules)
  */
@@ -44,4 +46,7 @@ class ShellComponent
         string name;
         string description;
 };
+
+} // namespace ownshell
+
 #endif

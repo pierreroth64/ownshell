@@ -9,6 +9,8 @@
 #include <cstdlib>
 #include "ownshell.h"
 
+using namespace ownshell;
+
 /* This Env Shell shows how transmit data from a shell command to another using the environment container
  *
  * args 12 foo bar   --> will add 12, foo & bar to the env-stored args list

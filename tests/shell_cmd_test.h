@@ -10,6 +10,7 @@
 #include <vector>
 
 using namespace std;
+using namespace ownshell;
 
 /* Shell command concrete class for testing */
 class MyShellCmd : public ShellCmd {
