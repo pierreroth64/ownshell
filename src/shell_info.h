@@ -12,6 +12,8 @@
 
 using namespace std;
 
+namespace ownshell {
+
 /**
  *  ShellInfo provides information about the library
  */
@@ -22,4 +24,7 @@ class ShellInfo
         static string getVersion();
         static string getName();
 };
+
+} // namespace ownshell
+
 #endif

@@ -8,6 +8,8 @@
 #include "shell_except.h"
 #include "shell_env.h"
 
+namespace ownshell {
+
 class ShellEnvDataEntry
 {
     public:
@@ -62,3 +64,5 @@ unsigned int ShellEnv::getEntriesNumber(void)
 {
     return this->entries.size();
 }
+
+} // namespace ownshell

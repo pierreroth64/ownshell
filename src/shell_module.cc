@@ -8,6 +8,8 @@
 #include "shell_except.h"
 #include "shell_module.h"
 
+namespace ownshell {
+
 ShellComponent* ShellModule::findComponent(ShellComponent * component)
 {
     if (component == 0)
@@ -100,3 +102,5 @@ string ShellModule::run(vector<string> args)
     /* Running a module returns help */
     return help + this->getHelp();
 }
+
+} // namespace ownshell

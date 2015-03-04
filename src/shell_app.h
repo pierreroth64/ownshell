@@ -15,6 +15,8 @@
 
 using namespace std;
 
+namespace ownshell {
+
 class ShellHooks
 {
     public:
@@ -74,4 +76,5 @@ class ShellApp
         vector<string> getCmdLineTokens(void);
 };
 
+} // namespace ownshell
 #endif

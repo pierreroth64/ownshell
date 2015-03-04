@@ -7,8 +7,10 @@
 
 #include "shell_info.h"
 #include "shell_info_defines.h_generated"
-
 #include<sstream>
+
+namespace ownshell {
+
 template <typename T>
 string to_string(T value)
 {
@@ -34,3 +36,5 @@ string ShellInfo::getName(void)
 {
     return OWNSHELL_NAME;
 }
+
+} //namespace ownshell

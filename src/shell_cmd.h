@@ -15,6 +15,8 @@
 
 using namespace std;
 
+namespace ownshell {
+
 /**
  *  ShellCmd is an interface that has to be implemented by concrete commands
  *  It is also a ShellComponent as it can be part of a composite
@@ -31,4 +33,7 @@ class ShellCmd: public ShellComponent
         string detailed_help;
 
 };
+
+} // namespace ownshell
+
 #endif
