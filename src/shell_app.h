@@ -8,11 +8,36 @@
 #ifndef _OWNSHELL_I_APP_H
 #define _OWNSHELL_I_APP_H
 
+#include "shell_except.h"
 #include "shell_env.h"
 #include "shell_component.h"
 #include <vector>
 
 using namespace std;
+
+class ShellHooks
+{
+    public:
+        ShellHooks(ShellEnv* env, void* user_data) {
+            this->env = env;
+            this->user_data = user_data;
+        };
+        virtual ~ShellHooks() {};
+        virtual void on_error(runtime_error* error, ShellComponent * component) {
+            error = error;
+            component = component;
+        };
+        virtual void on_info(string msg, ShellComponent * component) {
+            msg = msg;
+            component = component;
+        };
+        virtual void on_critical(string msg) {
+            msg = msg;
+        };
+    protected:
+        ShellEnv* env;
+        void * user_data;
+};
 
 /**
  * A ShellApp implements an interactive shell
@@ -24,6 +49,7 @@ class ShellApp
         ~ShellApp();
         void loop(void);
         void setExitCommand(string name);
+        void setHooks(ShellHooks* hooks) { this->hooks = hooks; };
         void setHelpCommand(string name);
         void setTopHelp(string msg);
         void setWelcomeBanner(string banner);
@@ -37,6 +63,7 @@ class ShellApp
         string exit_cmd;
         string help_cmd;
         string top_help_msg;
+        ShellHooks* hooks;
 
         void displayWelcomeBanner(void);
         void displayPrompt(void);

@@ -17,3 +17,6 @@ set_property(TARGET libownshell PROPERTY IMPORTED_LOCATION ${OWNSHELL_ARCHIVE})
 add_executable(simple_shell.bin simple_shell.cc)
 target_link_libraries(simple_shell.bin libownshell)
 
+# hooked shell
+add_executable(hooked_shell.bin hooked_shell.cc)
+target_link_libraries(hooked_shell.bin libownshell)
