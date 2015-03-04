@@ -20,27 +20,30 @@ using namespace std;
 class ShellApp
 {
     public:
-        ShellApp(ShellEnv* env, string prompt, ShellComponent* root);
+        ShellApp(ShellEnv* env, string name, string prompt, ShellComponent* root);
         ~ShellApp();
         void loop(void);
         void setExitCommand(string name);
         void setHelpCommand(string name);
+        void setTopHelp(string msg);
         void setWelcomeBanner(string banner);
 
     private:
         ShellEnv* env;
         ShellComponent* root;
+        string name;
         string welcome_banner;
         string prompt;
         string exit_cmd;
         string help_cmd;
+        string top_help_msg;
 
         void displayWelcomeBanner(void);
         void displayPrompt(void);
         void displayError(string error);
         void displayInfo(string msg);
         void displayHelp(std::vector<string> tokens);
-        string getGeneralHelp(void);
+        string getTopHelp(void);
         vector<string> getCmdLineTokens(void);
 };
 

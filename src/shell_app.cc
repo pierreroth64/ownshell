@@ -14,15 +14,17 @@
 #include <sstream>
 #include <cstdlib>
 
-ShellApp::ShellApp(ShellEnv* env, string prompt, ShellComponent* root)
+ShellApp::ShellApp(ShellEnv* env, string name, string prompt, ShellComponent* root)
 {
     this->env = env;
+    this->name = name;
     this->prompt = prompt;
     this->root = new ShellModule(env, "/", "");
     this->root->add(root);
     this->exit_cmd = "exit";
     this->help_cmd = "help";
     this->welcome_banner = "";
+    this->top_help_msg = "";
 }
 
 ShellApp::~ShellApp()
@@ -30,15 +32,24 @@ ShellApp::~ShellApp()
     if (this->root)
         delete this->root;
 }
-string ShellApp::getGeneralHelp(void)
+
+void ShellApp::setTopHelp(string msg)
 {
-    return "*** General help ***\n"\
-           "Commands must provide one (or more!) <module> name(s) and a <command> name such as:\n"\
-           "    device list \n"\
-           "    extra utilities gettime \n"\
-           "    datas set_output dev1 ON \n"\
-           "To display module commands, type help <module>\n"\
-           "To display command help, type help <module> <command>\n\n";
+    this->top_help_msg =  msg;
+}
+
+string ShellApp::getTopHelp(void)
+{
+    if (this->top_help_msg != "")
+        return this->top_help_msg;
+    else
+        return "*** " + this->name + " help ***\n"\
+               "Commands must provide one (or more!) <module> name(s) and a <command> name such as:\n"\
+               "    device list \n"\
+               "    extra utilities gettime \n"\
+               "    device output set dev1 ON \n"\
+               "To display module commands, type help <module 1>...<module N>\n"\
+               "To display command help, type help <module 1>...<module N> <command>";
 }
 
 void ShellApp::displayPrompt(void)
@@ -97,8 +108,10 @@ void ShellApp::displayHelp(vector<string> tokens)
     ShellComponent* component;
 
     /* help was typed without any additional arg, display general help */
-    if (tokens.size() == 1)
-        help = this->getGeneralHelp();
+    if (tokens.size() == 1) {
+        help = this->getTopHelp();
+        help += this->root->getHelp();
+    }
     else {
         try {
             component = this->root->findComponentFromTokens(tokens);

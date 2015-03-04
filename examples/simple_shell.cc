@@ -40,23 +40,21 @@ int main(void) {
     /* Create environment for your shell */
     ShellEnv* env = new ShellEnv("my environment");
 
-    /* Create a command */
+    /* Create your modules/commands tree */
     ShellCmd* cmd_hello = new MyShellCmd(env, "hello", "displays a hello string on output", "hello!");
 
-    /* Create a module and register the command */
     ShellModule* mod_newbie = new ShellModule(env, "newbie", "newbie commands");
     mod_newbie->add(cmd_hello);
 
-    /* Create submodule */
     ShellModule* mod_extra = new ShellModule(env, "extra", "extra commands");
     ShellCmd* cmd_extra = new MyShellCmd(env, "extra", "displays an extra string on output", "extra");
     mod_extra->add(cmd_extra);
     mod_newbie->add(mod_extra);
 
     /* Start your shell application */
-    ShellApp* my_shell = new ShellApp(env, "my_shell>", mod_newbie);
+    ShellApp* my_shell = new ShellApp(env, "Simple Shell", "my_shell>", mod_newbie);
     my_shell->setExitCommand("exit");
-    string banner = "Welcome to simple shell";
+    string banner = "Welcome to Simple Shell";
     banner += " (based on " + ShellInfo::getName() + " - " + ShellInfo::getVersion() + ")\n";
     my_shell->setWelcomeBanner(banner);
     my_shell->loop();
