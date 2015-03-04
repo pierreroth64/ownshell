@@ -14,6 +14,23 @@
 #include <sstream>
 #include <cstdlib>
 
+class DefaultShellHooks: public ShellHooks
+{
+    public:
+        DefaultShellHooks(ShellEnv* env, void* user_data): ShellHooks(env, user_data) {};
+        virtual void on_error(runtime_error* error, ShellComponent * component) {
+            component = component; /* to avoid warnings */
+            cerr << "Error: " << error->what() << endl ;
+        };
+        virtual void on_info(string msg, ShellComponent * component) {
+            component = component; /* to avoid warnings */
+            cerr << msg << endl ;
+        };
+        virtual void on_critical(string msg) {
+            cerr << msg << endl ;
+        };
+};
+
 ShellApp::ShellApp(ShellEnv* env, string name, string prompt, ShellComponent* root)
 {
     this->env = env;
@@ -25,12 +42,15 @@ ShellApp::ShellApp(ShellEnv* env, string name, string prompt, ShellComponent* ro
     this->help_cmd = "help";
     this->welcome_banner = "";
     this->top_help_msg = "";
+    this->hooks = new DefaultShellHooks(env, (void *) NULL);
 }
 
 ShellApp::~ShellApp()
 {
     if (this->root)
         delete this->root;
+    if (this->hooks)
+        delete this->hooks;
 }
 
 void ShellApp::setTopHelp(string msg)
@@ -55,16 +75,6 @@ string ShellApp::getTopHelp(void)
 void ShellApp::displayPrompt(void)
 {
     cout << this->prompt << " " ;
-}
-
-void ShellApp::displayError(string error)
-{
-    cerr << "Error: " << error << endl ;
-}
-
-void ShellApp::displayInfo(string msg)
-{
-    cerr << msg << endl ;
 }
 
 void ShellApp::displayWelcomeBanner(void)
@@ -117,10 +127,10 @@ void ShellApp::displayHelp(vector<string> tokens)
             component = this->root->findComponentFromTokens(tokens);
             help = component->getHelp();
         } catch (shell_except& e) {
-            this->displayError(e.what());
-            this->displayInfo("Type help for general help");
+            this->hooks->on_error(&e, component);
+            this->hooks->on_info("Type help for general help", component);
         } catch (...) {
-            this->displayError("help not found. Type help for general help");
+            this->hooks->on_critical("help not found. Type help for general help");
         };
     }
     cout << help << endl;
@@ -151,8 +161,8 @@ void ShellApp::loop(void)
             unsigned int nb = component->getParentsNb();
             vector<string> args(tokens.begin() + nb, tokens.end());
             cout << component->run(args) << endl;
-        } catch (shell_except e) {
-            this->displayError("command error");
+        } catch (runtime_error e) {
+            this->hooks->on_error(&e, (ShellComponent*) NULL);
         }
     };
 }

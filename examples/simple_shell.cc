@@ -9,6 +9,8 @@
 #include <cstdlib>
 #include "ownshell.h"
 
+/* This Simple Shell shows how to create your modules/commands tree */
+
 using namespace std;
 
 /* My concrete shell command */
