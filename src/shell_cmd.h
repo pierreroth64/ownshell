@@ -25,7 +25,9 @@ namespace ownshell {
 class ShellCmd: public ShellComponent
 {
     public:
-        ShellCmd(ShellEnv* env, string name, string description, string help = "") : ShellComponent(env, name, description) { this->detailed_help = help; };
+        ShellCmd(ShellEnv* env, string name, string description, string help = "") : ShellComponent(env, name, description) {
+            this->detailed_help = help;
+        };
         virtual ~ShellCmd(){};
         virtual string getHelp(void);
         virtual string run(vector<string> args);

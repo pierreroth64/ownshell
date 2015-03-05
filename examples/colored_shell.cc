@@ -59,7 +59,7 @@ int main(void) {
     mod_newbie->add(mod_extra);
 
     /* Start your shell application */
-    ShellApp* my_shell = new ShellApp(env, "Simple Shell", "colored>", mod_newbie);
+    ShellApp* my_shell = new ShellApp(env, "Colored Shell", "colored>", mod_newbie);
     my_shell->setExitCommand("exit");
     string banner = "Welcome to Colored Shell";
     banner += " (based on " + ShellInfo::getName() + " - " + ShellInfo::getVersion() + ")\n";

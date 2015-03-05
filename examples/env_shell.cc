@@ -84,7 +84,7 @@ int main(void) {
     mod->add(list_cmd);
 
     /* Start your shell application */
-    ShellApp* my_shell = new ShellApp(env, "Env", "env>", mod);
+    ShellApp* my_shell = new ShellApp(env, "Env Shell", "env>", mod);
     my_shell->setExitCommand("exit");
     string banner = "Welcome to Env Shell";
     banner += " (based on " + ShellInfo::getName() + " - " + ShellInfo::getVersion() + ")\n";

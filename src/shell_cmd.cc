@@ -13,7 +13,10 @@ namespace ownshell {
 string ShellCmd::getHelp(void)
 {
     ShellHelpFormatter* formatter = this->env->getHelpFormatter();
-    return formatter->formatCmdHelp(this->detailed_help);
+    if (this->detailed_help != "")
+        return formatter->formatCmdHelp(this->detailed_help);
+    else
+        return formatter->formatCmdHelp(this->getDescription());
 }
 
 string ShellCmd::run(vector<string> args)
