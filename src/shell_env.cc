@@ -7,6 +7,7 @@
 
 #include "shell_except.h"
 #include "shell_env.h"
+#include "help_formatters/shell_default_help_formatter.h"
 
 namespace ownshell {
 
@@ -26,7 +27,14 @@ ShellEnvDataEntry::ShellEnvDataEntry(string name, void* data)
 
 ShellEnv::ShellEnv(string name)
 {
+    this->formatter = new ShellHelpDefaultFormatter();
     this->name = name;
+}
+
+ShellEnv::~ShellEnv()
+{
+    if (this->formatter)
+        delete this->formatter;
 }
 
 void ShellEnv::addEntry(string name, void* entry)

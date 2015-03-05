@@ -11,6 +11,9 @@
 #include <string>
 #include <list>
 
+#include "shell_except.h"
+#include "shell_help_formatter.h"
+
 using namespace std;
 
 namespace ownshell {
@@ -26,8 +29,16 @@ class ShellEnv
     private:
         list<ShellEnvDataEntry *> entries;
         string name;
+        ShellHelpFormatter* formatter;
     public:
         ShellEnv(string name);
+        ~ShellEnv();
+        void setHelpFormatter(ShellHelpFormatter* formatter) {
+            if (!this->formatter)
+                throw shell_except_unsupported("Help formatter must be set");
+            this->formatter = formatter;
+        };
+        ShellHelpFormatter* getHelpFormatter(void) { return this->formatter; };
         void addEntry(string name, void* entry);
         void removeEntry(string name);
         void * getEntry(string name);
