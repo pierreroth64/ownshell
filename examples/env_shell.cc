@@ -11,13 +11,7 @@
 
 using namespace ownshell;
 
-/* This Env Shell shows how transmit data from a shell command to another using the environment container
- *
- * args 12 foo bar   --> will add 12, foo & bar to the env-stored args list
- * args list         --> will show 12, foo and bar in the list
- * args rm           --> will remove all items in the list
- * args list         --> this call should show you an empty list
- * */
+/* This Env Shell shows how transmit data from a shell command to another using the environment container */
 
 using namespace std;
 
@@ -89,6 +83,11 @@ int main(void) {
     string banner = "Welcome to Env Shell";
     banner += " (based on " + ShellInfo::getName() + " - " + ShellInfo::getVersion() + ")\n";
     my_shell->setWelcomeBanner(banner);
+    my_shell->setTopHelp("This Env Shell shows how transmit data from a shell command to another using the environment container\n\n"
+                         "args 12 foo bar   --> will add 12, foo & bar to the env-stored args list\n"
+                         "args list         --> will show 12, foo and bar in the list\n"
+                         "args rm           --> will remove all items in the list\n"
+                         "args list         --> this call should show you an empty list");
     my_shell->loop();
 
     exit(0);

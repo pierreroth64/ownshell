@@ -12,14 +12,7 @@
 using namespace ownshell;
 using namespace std;
 
-/* This Hooked Shell shows how to hook into the shell application
- *
- * Once in shell:
- *
- * hooked> simple fail    ----> shows your on_error hook
- * hooked> unknown        ----> shows your on_critical hook
- * hooked> help unknown   ----> shows your on_error and on_info hook
- * */
+/* This Hooked Shell shows how to hook into the shell application */
 
 class MyShellSuccessCmd : public ShellCmd {
     public:
@@ -72,14 +65,20 @@ int main(void) {
     mod->add(success_cmd);
     mod->add(fail_cmd);
 
-
     /* Start your shell application */
     ShellApp* my_shell = new ShellApp(env, "Hooked Shell", "hooked>", mod);
     my_shell->setExitCommand("exit");
     string banner = "Welcome to Hooked Shell";
     banner += " (based on " + ShellInfo::getName() + " - " + ShellInfo::getVersion() + ")\n";
     my_shell->setWelcomeBanner(banner);
+
+    /* Set hooks here */
     my_shell->setHooks(new MyShellHooks(env, (void *) NULL));
+
+    my_shell->setTopHelp("This Hooked Shell shows how to hook into the shell application\n\n"
+                         "simple fail    ----> shows your on_error hook\n"
+                         "unknown        ----> shows your on_critical hook\n"
+                         "help unknown   ----> shows your on_error and on_info hook\n");
     my_shell->loop();
 
     exit(0);
