@@ -25,6 +25,7 @@ class ShellHelpDefaultFormatter: public ShellHelpFormatter
         ShellHelpDefaultFormatter() : ShellHelpFormatter("default") {};
         virtual ~ShellHelpDefaultFormatter() {};
 
+        virtual string formatTopHelp(string top_help);
         virtual string formatTitle(string title);
         virtual string formatSubTitle();
         virtual string formatModuleHelp(string name, string description);

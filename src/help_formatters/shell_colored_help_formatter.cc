@@ -13,6 +13,7 @@ namespace ownshell {
 #define COLOR_RED (string) "\033[0;31m"
 #define COLOR_GREEN (string) "\033[0;32m"
 #define COLOR_YELLOW (string) "\033[0;33m"
+#define COLOR_BLUE (string) "\033[0;34m"
 #define COLOR_PURPLE (string) "\033[0;35m"
 #define COLOR_NORMAL (string) "\033[0m"
 
@@ -20,6 +21,11 @@ string ShellHelpColoredFormatter::backToNormal()
 {
     return COLOR_NORMAL;
 };
+
+string ShellHelpColoredFormatter::formatTopHelp(string top_help)
+{
+    return COLOR_BLUE + top_help + this->backToNormal();
+}
 
 string ShellHelpColoredFormatter::formatTitle(string title)
 {

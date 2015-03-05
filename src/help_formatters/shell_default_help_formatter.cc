@@ -9,6 +9,12 @@
 
 namespace ownshell {
 
+
+string ShellHelpDefaultFormatter::formatTopHelp(string top_help)
+{
+    return top_help;
+}
+
 string ShellHelpDefaultFormatter::formatTitle(string title)
 {
     return title;

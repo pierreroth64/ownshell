@@ -24,6 +24,7 @@ class ShellHelpFormatter
         ShellHelpFormatter(string name) { this->name = name; };
         virtual ~ShellHelpFormatter() {};
 
+        virtual string formatTopHelp(string top_help) = 0;
         virtual string formatTitle(string title) = 0;
         virtual string formatSubTitle() = 0;
         virtual string formatModuleHelp(string name, string descriptio) = 0;

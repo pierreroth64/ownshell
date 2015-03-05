@@ -53,7 +53,7 @@ class ShellApp
         void setExitCommand(string name);
         void setHooks(ShellHooks* hooks) { this->hooks = hooks; };
         void setHelpCommand(string name);
-        void setTopHelp(string msg);
+        void setTopHelp(string msg) { this->top_help_msg = msg; };
         void setWelcomeBanner(string banner);
 
     private:

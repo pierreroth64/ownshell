@@ -55,23 +55,19 @@ ShellApp::~ShellApp()
         delete this->hooks;
 }
 
-void ShellApp::setTopHelp(string msg)
-{
-    this->top_help_msg =  msg;
-}
-
 string ShellApp::getTopHelp(void)
 {
+    ShellHelpFormatter* formatter = this->env->getHelpFormatter();
     if (this->top_help_msg != "")
-        return this->top_help_msg;
+        return formatter->formatTopHelp(this->top_help_msg);
     else
-        return "*** " + this->name + " help ***\n"\
+        return formatter->formatTopHelp("*** " + this->name + " help ***\n"\
                "Commands must provide one (or more!) <module> name(s) and a <command> name such as:\n"\
                "    device list \n"\
                "    extra utilities gettime \n"\
                "    device output set dev1 ON \n"\
                "To display module commands, type help <module 1>...<module N>\n"\
-               "To display command help, type help <module 1>...<module N> <command>";
+               "To display command help, type help <module 1>...<module N> <command>");
 }
 
 void ShellApp::displayPrompt(void)
