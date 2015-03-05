@@ -32,6 +32,7 @@ set(SOURCES
     src/shell_app.cc
     src/shell_info.cc
     src/help_formatters/shell_default_help_formatter.cc
+    src/help_formatters/shell_colored_help_formatter.cc
 )
 
 set(OWNSHELL_NAME "\"ownShell Library\"")

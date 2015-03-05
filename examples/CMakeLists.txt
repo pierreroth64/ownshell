@@ -24,3 +24,7 @@ target_link_libraries(hooked_shell.bin libownshell)
 # env shell
 add_executable(env_shell.bin env_shell.cc)
 target_link_libraries(env_shell.bin libownshell)
+
+# colored shell
+add_executable(colored_shell.bin colored_shell.cc)
+target_link_libraries(colored_shell.bin libownshell)

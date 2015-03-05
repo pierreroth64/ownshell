@@ -14,5 +14,7 @@
 #include "shell_cmd.h"
 #include "shell_module.h"
 #include "shell_app.h"
+#include "help_formatters/shell_default_help_formatter.h"
+#include "help_formatters/shell_colored_help_formatter.h"
 
 #endif
