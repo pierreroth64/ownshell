@@ -6,6 +6,7 @@ project(ownshell)
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/src/help_formatters)
 
 # lib google test (for unit tests)
 set(LIBGTEST_DIR "${PROJECT_SOURCE_DIR}/tests/libgtest")
@@ -30,6 +31,8 @@ set(SOURCES
     src/shell_component.cc
     src/shell_app.cc
     src/shell_info.cc
+    src/help_formatters/shell_default_help_formatter.cc
+    src/help_formatters/shell_colored_help_formatter.cc
 )
 
 set(OWNSHELL_NAME "\"ownShell Library\"")

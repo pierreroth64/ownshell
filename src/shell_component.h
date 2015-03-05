@@ -42,6 +42,7 @@ class ShellComponent
     protected:
         ShellComponent* parent;
         ShellEnv* env;
+
     private:
         string name;
         string description;

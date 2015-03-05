@@ -6,12 +6,14 @@
 */
 
 #include "shell_cmd.h"
+#include "shell_help_formatter.h"
 
 namespace ownshell {
 
 string ShellCmd::getHelp(void)
 {
-    return this->detailed_help;
+    ShellHelpFormatter* formatter = this->env->getHelpFormatter();
+    return formatter->formatCmdHelp(this->detailed_help);
 }
 
 string ShellCmd::run(vector<string> args)

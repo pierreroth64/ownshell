@@ -79,18 +79,18 @@ unsigned int ShellModule::getComponentsNb(void)
 string ShellModule::getHelp(void)
 {
     ShellComponent * component;
-    string help = this->getDescription();
+    ShellHelpFormatter* formatter = this->env->getHelpFormatter();
+    string help = formatter->formatTitle(this->getDescription());
 
     if (this->getComponentsNb()) {
-        help += "\n\nModules ([+]) and commands:\n";
+        help += formatter->formatSubTitle();
     }
     for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
         component = (*it);
         if (component->getComponentsNb())
-            help += "\t[+] ";
+            help += formatter->formatModuleHelp(component->getName(), component->getDescription());
         else
-            help += "\t  - ";
-        help += component->getName() + ": " + component->getDescription() + "\n";
+            help += formatter->formatModuleCmdHelp(component->getName(), component->getDescription());
     }
     return help;
 }
@@ -98,7 +98,8 @@ string ShellModule::getHelp(void)
 string ShellModule::run(vector<string> args)
 {
     args = args;
-    string help = "You cannot run this module directly.\n\n";
+    ShellHelpFormatter* formatter = this->env->getHelpFormatter();
+    string help = formatter->formatWarning("You cannot run this module directly");
     /* Running a module returns help */
     return help + this->getHelp();
 }
