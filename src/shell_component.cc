@@ -18,16 +18,6 @@ ShellComponent::ShellComponent(ShellEnv* env, string name, string description)
     parent_ = NULL;
 }
 
-string ShellComponent::getName(void)
-{
-    return name_;
-}
-
-string ShellComponent::getDescription(void)
-{
-    return description_;
-}
-
 string ShellComponent::getHelp(void)
 {
     return getDescription();

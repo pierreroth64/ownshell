@@ -27,10 +27,10 @@ class ShellComponent
         ShellComponent(ShellEnv* env, string name, string description);
         virtual ~ShellComponent() {};
 
-        string getName();
+        string getName() { return name_; };
         virtual string run(vector<string> args);
         virtual string getHelp();
-        virtual string getDescription();
+        virtual string getDescription() { return description_; };
 
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);
