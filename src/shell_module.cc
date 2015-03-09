@@ -104,4 +104,10 @@ string ShellModule::run(vector<string> args)
     return help + getHelp();
 }
 
+ShellComponentIterator* ShellModule::createIterator()
+{
+    return new DefaultShellComponentIterator();
+}
+
+
 } // namespace ownshell
