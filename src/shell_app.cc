@@ -35,33 +35,33 @@ class DefaultShellHooks: public ShellHooks
 
 ShellApp::ShellApp(ShellEnv* env, string name, string prompt, ShellComponent* root)
 {
-    this->env = env;
-    this->name = name;
-    this->prompt = prompt;
-    this->root = new ShellModule(env, "/", "");
-    this->root->add(root);
-    this->exit_cmd = "exit";
-    this->help_cmd = "help";
-    this->welcome_banner = "";
-    this->top_help_msg = "";
-    this->hooks = new DefaultShellHooks(env, (void *) NULL);
+    env_ = env;
+    name_ = name;
+    prompt_ = prompt;
+    root_ = new ShellModule(env, "/", "");
+    root_->add(root);
+    exit_cmd_ = "exit";
+    help_cmd_ = "help";
+    welcome_banner_ = "";
+    top_help_msg_ = "";
+    hooks_ = new DefaultShellHooks(env, (void *) NULL);
 }
 
 ShellApp::~ShellApp()
 {
-    if (this->root)
-        delete this->root;
-    if (this->hooks)
-        delete this->hooks;
+    if (root_)
+        delete root_;
+    if (hooks_)
+        delete hooks_;
 }
 
 string ShellApp::getTopHelp(void)
 {
-    ShellHelpFormatter* formatter = this->env->getHelpFormatter();
-    if (this->top_help_msg != "")
-        return formatter->formatTopHelp(this->top_help_msg);
+    ShellHelpFormatter* formatter = env_->getHelpFormatter();
+    if (top_help_msg_ != "")
+        return formatter->formatTopHelp(top_help_msg_);
     else
-        return formatter->formatTopHelp("*** " + this->name + " help ***\n"\
+        return formatter->formatTopHelp("*** " + name_ + " help ***\n"\
                "Commands must provide one (or more!) <module> name(s) and a <command> name such as:\n"\
                "    device list \n"\
                "    extra utilities gettime \n"\
@@ -72,28 +72,13 @@ string ShellApp::getTopHelp(void)
 
 void ShellApp::displayPrompt(void)
 {
-    cout << this->prompt << " " ;
+    cout << prompt_ << " " ;
 }
 
 void ShellApp::displayWelcomeBanner(void)
 {
-    if (this->welcome_banner != "")
-        cout << this->welcome_banner << endl ;
-}
-
-void ShellApp::setExitCommand(string name)
-{
-    this->exit_cmd = name;
-}
-
-void ShellApp::setHelpCommand(string name)
-{
-    this->help_cmd = name;
-}
-
-void ShellApp::setWelcomeBanner(string banner)
-{
-    this->welcome_banner = banner;
+    if (welcome_banner_ != "")
+        cout << welcome_banner_ << endl ;
 }
 
 vector<string> ShellApp::getCmdLineTokens(void)
@@ -117,18 +102,18 @@ void ShellApp::displayHelp(vector<string> tokens)
 
     /* help was typed without any additional arg, display general help */
     if (tokens.size() == 1) {
-        help = this->getTopHelp();
-        help += this->root->getHelp();
+        help = getTopHelp();
+        help += root_->getHelp();
     }
     else {
         try {
-            component = this->root->findComponentFromTokens(tokens);
+            component = root_->findComponentFromTokens(tokens);
             help = component->getHelp();
         } catch (shell_except& e) {
-            this->hooks->on_error(&e, component);
-            this->hooks->on_info("Type help for general help", component);
+            hooks_->on_error(&e, component);
+            hooks_->on_info("Type help for general help", component);
         } catch (...) {
-            this->hooks->on_critical("help not found. Type help for general help");
+            hooks_->on_critical("help not found. Type help for general help");
         };
     }
     cout << help << endl;
@@ -136,31 +121,31 @@ void ShellApp::displayHelp(vector<string> tokens)
 
 void ShellApp::loop(void)
 {
-    this->displayWelcomeBanner();
+    displayWelcomeBanner();
     while (1) {
 
-        this->displayPrompt();
-        vector<string> tokens = this->getCmdLineTokens();
+        displayPrompt();
+        vector<string> tokens = getCmdLineTokens();
 
         /* Check for exit command */
-        if ((tokens.size() >= 1) && (tokens[0] == this->exit_cmd))
+        if ((tokens.size() >= 1) && (tokens[0] == exit_cmd_))
             exit(0);
 
         /* Check for help commands */
-        if ((tokens.size() >= 1) && (tokens[0] == this->help_cmd)) {
-            this->displayHelp(tokens);
+        if ((tokens.size() >= 1) && (tokens[0] == help_cmd_)) {
+            displayHelp(tokens);
             continue;
         }
 
         try {
-            ShellComponent* component = this->root->findComponentFromTokens(tokens);
+            ShellComponent* component = root_->findComponentFromTokens(tokens);
             /* We now need to separate args from module(s)/cmd path
              * Just play with number of parents */
             unsigned int nb = component->getParentsNb();
             vector<string> args(tokens.begin() + nb, tokens.end());
             cout << component->run(args) << endl;
         } catch (runtime_error e) {
-            this->hooks->on_error(&e, (ShellComponent*) NULL);
+            hooks_->on_error(&e, (ShellComponent*) NULL);
         }
     };
 }

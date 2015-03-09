@@ -27,18 +27,18 @@ class ShellEnvDataEntry;
 class ShellEnv
 {
     private:
-        list<ShellEnvDataEntry *> entries;
-        string name;
-        ShellHelpFormatter* formatter;
+        list<ShellEnvDataEntry *> entries_;
+        string name_;
+        ShellHelpFormatter* formatter_;
     public:
         ShellEnv(string name);
         ~ShellEnv();
         void setHelpFormatter(ShellHelpFormatter* formatter) {
-            if (!this->formatter)
+            if (!formatter_)
                 throw shell_except_unsupported("Help formatter must be set");
-            this->formatter = formatter;
+            formatter_ = formatter;
         };
-        ShellHelpFormatter* getHelpFormatter(void) { return this->formatter; };
+        ShellHelpFormatter* getHelpFormatter(void) { return formatter_; };
         void addEntry(string name, void* entry);
         void removeEntry(string name);
         void * getEntry(string name);

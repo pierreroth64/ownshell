@@ -21,8 +21,8 @@ class ShellHooks
 {
     public:
         ShellHooks(ShellEnv* env, void* user_data) {
-            this->env = env;
-            this->user_data = user_data;
+            env_ = env;
+            user_data_ = user_data;
         };
         virtual ~ShellHooks() {};
         virtual void on_error(runtime_error* error, ShellComponent * component) {
@@ -37,8 +37,8 @@ class ShellHooks
             msg = msg;
         };
     protected:
-        ShellEnv* env;
-        void * user_data;
+        ShellEnv* env_;
+        void * user_data_;
 };
 
 /**
@@ -50,22 +50,22 @@ class ShellApp
         ShellApp(ShellEnv* env, string name, string prompt, ShellComponent* root);
         ~ShellApp();
         void loop(void);
-        void setExitCommand(string name);
-        void setHooks(ShellHooks* hooks) { this->hooks = hooks; };
-        void setHelpCommand(string name);
-        void setTopHelp(string msg) { this->top_help_msg = msg; };
-        void setWelcomeBanner(string banner);
+        void setExitCommand(string name) { exit_cmd_ = name; };
+        void setHooks(ShellHooks* hooks) { hooks_ = hooks; };
+        void setHelpCommand(string name) { help_cmd_ = name; };
+        void setTopHelp(string msg) { top_help_msg_ = msg; };
+        void setWelcomeBanner(string banner) { welcome_banner_ = banner; };
 
     private:
-        ShellEnv* env;
-        ShellComponent* root;
-        string name;
-        string welcome_banner;
-        string prompt;
-        string exit_cmd;
-        string help_cmd;
-        string top_help_msg;
-        ShellHooks* hooks;
+        ShellEnv* env_;
+        ShellComponent* root_;
+        string name_;
+        string welcome_banner_;
+        string prompt_;
+        string exit_cmd_;
+        string help_cmd_;
+        string top_help_msg_;
+        ShellHooks* hooks_;
 
         void displayWelcomeBanner(void);
         void displayPrompt(void);

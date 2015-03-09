@@ -12,25 +12,25 @@ namespace ownshell {
 
 ShellComponent::ShellComponent(ShellEnv* env, string name, string description)
 {
-    this->env = env;
-    this->name = name;
-    this->description = description;
-    this->parent = NULL;
+    env_ = env;
+    name_ = name;
+    description_ = description;
+    parent_ = NULL;
 }
 
 string ShellComponent::getName(void)
 {
-    return this->name;
+    return name_;
 }
 
 string ShellComponent::getDescription(void)
 {
-    return this->description;
+    return description_;
 }
 
 string ShellComponent::getHelp(void)
 {
-    return this->getDescription();
+    return getDescription();
 }
 
 unsigned int ShellComponent::getComponentsNb(void)
@@ -70,10 +70,10 @@ string ShellComponent::run(vector<string> args)
 
 unsigned int ShellComponent::getParentsNb()
 {
-    if (!this->parent) {
+    if (!parent_) {
         return 0;
     } else {
-        return this->parent->getParentsNb() + 1;
+        return parent_->getParentsNb() + 1;
     }
 }
 

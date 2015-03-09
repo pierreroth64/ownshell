@@ -20,7 +20,7 @@ class MyAddCmd : public ShellCmd {
     public:
         MyAddCmd(ShellEnv* env, string name, string description):  ShellCmd(env, name, description) {};
         virtual string run(vector<string> args) {
-            list<string> *my_list = (list<string> *) env->getEntry("args");
+            list<string> *my_list = (list<string> *) env_->getEntry("args");
             for (vector<string>::iterator it = args.begin(); it != args.end(); ++it) {
                 my_list->push_back(*it);
             }
@@ -34,7 +34,7 @@ class MyRemoveAllCmd : public ShellCmd {
         MyRemoveAllCmd(ShellEnv* env, string name, string description):  ShellCmd(env, name, description) {};
         virtual string run(vector<string> args) {
             args = args; /* to avoid warnings */
-            list<string> *my_list = (list<string> *) env->getEntry("args");
+            list<string> *my_list = (list<string> *) env_->getEntry("args");
             while (!my_list->empty()) {
                 my_list->pop_front();
             }
@@ -49,7 +49,7 @@ class MyListCmd : public ShellCmd {
         virtual string run(vector<string> args) {
             args = args; /* to avoid warnings */
             string output;
-            list<string> *my_list = (list<string> *) env->getEntry("args");
+            list<string> *my_list = (list<string> *) env_->getEntry("args");
             for (list<string>::iterator it = my_list->begin(); it != my_list->end(); ++it) {
                 output += (*it) + "\n";
             }

@@ -15,16 +15,16 @@ ShellComponent* ShellModule::findComponent(ShellComponent * component)
     if (component == 0)
         throw shell_except_not_found("Component not found");
 
-    return this->findComponentByName(component->getName());
+    return findComponentByName(component->getName());
 }
 
 ShellComponent* ShellModule::findComponentByName(string name)
 {
-    ShellComponent* _component;
-    for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
-        _component = (*it);
-        if (_component->getName() == name)
-             return _component;
+    ShellComponent* component;
+    for (list<ShellComponent *>::iterator it = components_.begin(); it != components_.end(); ++it) {
+        component = (*it);
+        if (component->getName() == name)
+             return component;
     }
     throw shell_except_not_found("Component not found");
 }
@@ -49,20 +49,20 @@ ShellComponent* ShellModule::findComponentFromTokens(vector<string> tokens)
 void ShellModule::add(ShellComponent* component)
 {
     try {
-        this->findComponent(component);
+        findComponent(component);
         throw shell_except_already("Component with such a name already exists");
     } catch (shell_except_not_found e) {
-        this->components.push_back(component);
+        components_.push_back(component);
         component->setParent(this);
     }
 }
 
 void ShellModule::remove(ShellComponent* component)
 {
-    for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ) {
+    for (list<ShellComponent *>::iterator it = components_.begin(); it != components_.end(); ) {
         if ((*it)->getName() == component->getName()) {
             component->setParent(NULL);
-            it = this->components.erase(it);
+            it = components_.erase(it);
             break;
         } else {
             ++it;
@@ -73,19 +73,19 @@ void ShellModule::remove(ShellComponent* component)
 unsigned int ShellModule::getComponentsNb(void)
 {
     /* We do not iterate over components: just want first level ones in tree */
-    return this->components.size();
+    return components_.size();
 }
 
 string ShellModule::getHelp(void)
 {
     ShellComponent * component;
-    ShellHelpFormatter* formatter = this->env->getHelpFormatter();
-    string help = formatter->formatTitle(this->getDescription());
+    ShellHelpFormatter* formatter = env_->getHelpFormatter();
+    string help = formatter->formatTitle(getDescription());
 
-    if (this->getComponentsNb()) {
+    if (getComponentsNb()) {
         help += formatter->formatSubTitle();
     }
-    for (list<ShellComponent *>::iterator it = this->components.begin(); it != this->components.end(); ++it) {
+    for (list<ShellComponent *>::iterator it = components_.begin(); it != components_.end(); ++it) {
         component = (*it);
         if (component->getComponentsNb())
             help += formatter->formatModuleHelp(component->getName(), component->getDescription());
@@ -98,10 +98,10 @@ string ShellModule::getHelp(void)
 string ShellModule::run(vector<string> args)
 {
     args = args;
-    ShellHelpFormatter* formatter = this->env->getHelpFormatter();
+    ShellHelpFormatter* formatter = env_->getHelpFormatter();
     string help = formatter->formatWarning("You cannot run this module directly");
     /* Running a module returns help */
-    return help + this->getHelp();
+    return help + getHelp();
 }
 
 } // namespace ownshell

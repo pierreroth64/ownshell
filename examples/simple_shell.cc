@@ -18,17 +18,17 @@ using namespace std;
 /* My concrete shell command */
 class MyShellCmd : public ShellCmd {
     private:
-        string result;
+        string result_;
     public:
         MyShellCmd(ShellEnv* env, string name, string description, string result=""):  ShellCmd(env, name, description) {
-            this->result = result;
+            result_ = result;
         };
         virtual string run(vector<string> args);
 };
 
 string MyShellCmd::run(vector<string> args)
 {
-    cout << this->getName() << " called with " << args.size() << " arguments" << endl;
+    cout << getName() << " called with " << args.size() << " arguments" << endl;
     if (args.size()) {
         cout << "Args: ";
         for(vector<string>::iterator it = args.begin(); it != args.end(); ++it) {
@@ -36,7 +36,7 @@ string MyShellCmd::run(vector<string> args)
         }
         cout << endl;
     }
-    return this->result;
+    return result_;
 }
 
 int main(void) {
