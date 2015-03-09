@@ -24,41 +24,41 @@ string ShellHelpColoredFormatter::backToNormal()
 
 string ShellHelpColoredFormatter::formatTopHelp(string top_help)
 {
-    return COLOR_BLUE + top_help + this->backToNormal();
+    return COLOR_BLUE + top_help + backToNormal();
 }
 
 string ShellHelpColoredFormatter::formatTitle(string title)
 {
-    return COLOR_PURPLE + title + this->backToNormal();
+    return COLOR_PURPLE + title + backToNormal();
 }
 
 string ShellHelpColoredFormatter::formatSubTitle()
 {
-    return COLOR_CYAN + "\n\nModules ([+]) and commands:\n" + this->backToNormal();
+    return COLOR_CYAN + "\n\nModules ([+]) and commands:\n" + backToNormal();
 }
 
 string ShellHelpColoredFormatter::formatModuleHelp(string name, string description)
 {
     string help = "\t[+] ";
     help += COLOR_GREEN + name + COLOR_NORMAL + ": " + description + "\n";
-    return help + this->backToNormal();
+    return help + backToNormal();
 }
 
 string ShellHelpColoredFormatter::formatModuleCmdHelp(string name, string description)
 {
     string help = "\t  - ";
     help += COLOR_YELLOW + name + COLOR_NORMAL + + ": " + description + "\n";
-    return help + this->backToNormal();
+    return help + backToNormal();
 }
 
 string ShellHelpColoredFormatter::formatCmdHelp(string cmd_help)
 {
-    return cmd_help + this->backToNormal();
+    return cmd_help + backToNormal();
 }
 
 string ShellHelpColoredFormatter::formatWarning(string warning)
 {
-    return COLOR_RED + warning + "\n\n" + this->backToNormal();
+    return COLOR_RED + warning + "\n\n" + backToNormal();
 }
 
 

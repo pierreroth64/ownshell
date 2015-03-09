@@ -37,15 +37,15 @@ class ShellComponent
         virtual unsigned int getComponentsNb(void);
         virtual ShellComponent* findComponentByName(string name);
         virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
-        void setParent(ShellComponent* parent) { this->parent = parent; };
+        void setParent(ShellComponent* parent) { parent_ = parent; };
         unsigned int getParentsNb(void);
     protected:
-        ShellComponent* parent;
-        ShellEnv* env;
+        ShellComponent* parent_;
+        ShellEnv* env_;
 
     private:
-        string name;
-        string description;
+        string name_;
+        string description_;
 };
 
 } // namespace ownshell

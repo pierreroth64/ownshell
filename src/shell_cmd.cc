@@ -12,11 +12,11 @@ namespace ownshell {
 
 string ShellCmd::getHelp(void)
 {
-    ShellHelpFormatter* formatter = this->env->getHelpFormatter();
-    if (this->detailed_help != "")
-        return formatter->formatCmdHelp(this->detailed_help);
+    ShellHelpFormatter* formatter = env_->getHelpFormatter();
+    if (detailed_help_ != "")
+        return formatter->formatCmdHelp(detailed_help_);
     else
-        return formatter->formatCmdHelp(this->getDescription());
+        return formatter->formatCmdHelp(getDescription());
 }
 
 string ShellCmd::run(vector<string> args)

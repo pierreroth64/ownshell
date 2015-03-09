@@ -14,39 +14,39 @@ namespace ownshell {
 class ShellEnvDataEntry
 {
     public:
-        string name;
-        void* data;
+        string name_;
+        void* data_;
         ShellEnvDataEntry(string name, void* data);
 };
 
 ShellEnvDataEntry::ShellEnvDataEntry(string name, void* data)
 {
-    this->name = name;
-    this->data = data;
+    name_ = name;
+    data_ = data;
 }
 
 ShellEnv::ShellEnv(string name)
 {
-    this->formatter = new ShellHelpDefaultFormatter();
-    this->name = name;
+    formatter_ = new ShellHelpDefaultFormatter();
+    name_ = name;
 }
 
 ShellEnv::~ShellEnv()
 {
-    if (this->formatter)
-        delete this->formatter;
+    if (formatter_)
+        delete formatter_;
 }
 
 void ShellEnv::addEntry(string name, void* entry)
 {
-    this->entries.push_back(new ShellEnvDataEntry(name, entry));
+    entries_.push_back(new ShellEnvDataEntry(name, entry));
 }
 
 void ShellEnv::removeEntry(string name)
 {
-    for (list<ShellEnvDataEntry *>::iterator it = this->entries.begin(); it != this->entries.end(); ) {
-        if ((*it)->name == name) {
-            it = this->entries.erase(it);
+    for (list<ShellEnvDataEntry *>::iterator it = entries_.begin(); it != entries_.end(); ) {
+        if ((*it)->name_ == name) {
+            it = entries_.erase(it);
             break;
         } else {
             ++it;
@@ -58,10 +58,10 @@ void * ShellEnv::getEntry(string name)
 {
     void * found = 0;
     ShellEnvDataEntry * entry;
-    for (list<ShellEnvDataEntry *>::iterator it = this->entries.begin(); it != this->entries.end(); ++it) {
+    for (list<ShellEnvDataEntry *>::iterator it = entries_.begin(); it != entries_.end(); ++it) {
         entry = (*it);
-        if (entry->name == name)
-            found = entry->data;
+        if (entry->name_ == name)
+            found = entry->data_;
     }
     if (!found)
         throw shell_except_not_found("Environment entry not found");
@@ -70,7 +70,7 @@ void * ShellEnv::getEntry(string name)
 
 unsigned int ShellEnv::getEntriesNumber(void)
 {
-    return this->entries.size();
+    return entries_.size();
 }
 
 } // namespace ownshell

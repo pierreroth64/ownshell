@@ -21,18 +21,18 @@ namespace ownshell {
 class ShellHelpFormatter
 {
     public:
-        ShellHelpFormatter(string name) { this->name = name; };
+        ShellHelpFormatter(string name) { name_ = name; };
         virtual ~ShellHelpFormatter() {};
 
         virtual string formatTopHelp(string top_help) = 0;
         virtual string formatTitle(string title) = 0;
         virtual string formatSubTitle() = 0;
-        virtual string formatModuleHelp(string name, string descriptio) = 0;
-        virtual string formatModuleCmdHelp(string name, string descriptio) = 0;
+        virtual string formatModuleHelp(string name, string description) = 0;
+        virtual string formatModuleCmdHelp(string name, string description) = 0;
         virtual string formatCmdHelp(string cmd_help) = 0;
         virtual string formatWarning(string warning) = 0;
     protected:
-        string name;
+        string name_;
 };
 
 } // namespace ownshell

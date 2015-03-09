@@ -26,13 +26,13 @@ class ShellCmd: public ShellComponent
 {
     public:
         ShellCmd(ShellEnv* env, string name, string description, string help = "") : ShellComponent(env, name, description) {
-            this->detailed_help = help;
+            detailed_help_ = help;
         };
         virtual ~ShellCmd(){};
         virtual string getHelp(void);
         virtual string run(vector<string> args);
     private:
-        string detailed_help;
+        string detailed_help_;
 
 };
 
