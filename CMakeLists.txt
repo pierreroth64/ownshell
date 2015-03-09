@@ -7,6 +7,7 @@ project(ownshell)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/src/help_formatters)
+include_directories(${PROJECT_SOURCE_DIR}/src/iterators)
 
 # lib google test (for unit tests)
 set(LIBGTEST_DIR "${PROJECT_SOURCE_DIR}/tests/libgtest")

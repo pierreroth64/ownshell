@@ -13,6 +13,8 @@
 #include <list>
 #include "shell_env.h"
 
+class ShellComponentIterator;
+
 using namespace std;
 
 namespace ownshell {
@@ -23,6 +25,8 @@ namespace ownshell {
 
 class ShellComponent
 {
+    friend class ShellComponentIterator;
+
     public:
         ShellComponent(ShellEnv* env, string name, string description);
         virtual ~ShellComponent() {};
@@ -38,7 +42,9 @@ class ShellComponent
         virtual ShellComponent* findComponentByName(string name);
         virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
         void setParent(ShellComponent* parent) { parent_ = parent; };
-        unsigned int getParentsNb(void);
+        virtual unsigned int getParentsNb(void);
+
+        virtual ShellComponentIterator* createIterator();
     protected:
         ShellComponent* parent_;
         ShellEnv* env_;
