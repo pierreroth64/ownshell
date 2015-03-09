@@ -44,7 +44,7 @@ int main(void) {
     /* Create environment for your shell */
     ShellEnv* env = new ShellEnv("my environment");
 
-    /* Add a help formatter: you may implement your by subclassing ShellHelpFormatter interface */
+    /* Add a help formatter: you may implement yours by subclassing ShellHelpFormatter interface */
     env->setHelpFormatter(new ShellHelpColoredFormatter());
 
     /* Create your modules/commands tree */
