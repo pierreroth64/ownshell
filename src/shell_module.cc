@@ -7,6 +7,7 @@
 
 #include "shell_except.h"
 #include "shell_module.h"
+#include "iterators/shell_module_default_iterator.h"
 
 namespace ownshell {
 
@@ -104,9 +105,14 @@ string ShellModule::run(vector<string> args)
     return help + getHelp();
 }
 
+ShellComponent* ShellModule::getFirstChild()
+{
+    return components_.front();
+}
+
 ShellComponentIterator* ShellModule::createIterator()
 {
-    return new DefaultShellComponentIterator();
+    return new ShellModuleDefaultIterator(this);
 }
 
 

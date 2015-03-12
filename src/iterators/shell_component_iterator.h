@@ -20,11 +20,15 @@ namespace ownshell {
 class ShellComponentIterator
 {
     public:
-        ShellComponentIterator();
+        ShellComponentIterator(ShellComponent* component) { root_ = component; };
         virtual ~ShellComponentIterator() {};
 
         virtual ShellComponent* next() = 0;
         virtual bool hasNext() = 0;
+        string getName() { return name_; };
+    protected:
+        ShellComponent* root_;
+        string name_;
 };
 
 } // namespace ownshell

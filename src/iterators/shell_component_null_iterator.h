@@ -17,7 +17,7 @@ namespace ownshell {
 class ShellComponentNullIterator : public ShellComponentIterator
 {
     public:
-        ShellComponentNullIterator() {};
+        ShellComponentNullIterator(ShellComponent* component) : ShellComponentIterator(component) {};
         virtual ~ShellComponentNullIterator() {};
 
         virtual ShellComponent* next() { return NULL; };

@@ -67,6 +67,11 @@ unsigned int ShellComponent::getParentsNb()
     }
 }
 
+ShellComponent* ShellComponent::getFirstChild()
+{
+    throw shell_except_unsupported("Operation not supported");
+}
+
 ShellComponentIterator* ShellComponent::createIterator()
 {
     throw shell_except_unsupported("Cannot create iterator with component base class");

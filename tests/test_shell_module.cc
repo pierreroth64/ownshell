@@ -11,6 +11,50 @@
 
 using namespace ownshell;
 
+class TestTree {
+
+    public:
+        TestTree() {};
+        ~TestTree() {};
+        static void createTree(ShellModule* root, ShellEnv* env) {
+
+                /*   Commands tree:
+                 *
+                 *   root .......................................
+                 *     |_ "mod 1"
+                 *     |_ "mod 2"                        level 1
+                 *     |_ "mod 3" ...............................
+                 *          |_ "command 1"               level 2
+                 *          |_ "mod 2" ..........................
+                 *               |_ "command 2"          level 3
+                 *               |_ "mod 4" .....................
+                 *                    |_ "command 1"
+                 *                    |_ "command 3"     level 4
+                 *                    |_ "command 4" ............
+                 */
+                /* level 1 */
+                root->add(new ShellModule(env, "mod 1", "root/mod 1/ description"));
+                root->add(new ShellModule(env, "mod 2", "root/mod 2/ description"));
+                ShellModule* mod_3 = new ShellModule(env, "mod 3", "root/mod 3/ description");
+                root->add(mod_3);
+
+                /* level 2 */
+                mod_3->add(new ShellCmd(env, "command 1", "root/mod 3/command 1 help"));
+                ShellModule* mod_2 = new ShellModule(env, "mod 2", "root/mod 3/mod 2/ description");
+                mod_3->add(mod_2);
+
+                /* level 3 */
+                mod_2->add(new ShellCmd(env, "command 2", "root/mod 3/mod 2/command 2 help"));
+                ShellModule* mod_4 = new ShellModule(env, "mod 4", "root/mod 3/mod 2/mod 4 description");
+                mod_2->add(mod_4);
+
+                /* level 4 */
+                mod_4->add(new ShellCmd(env, "command 1", "root/mod 3/mod 2/mod 4/command 1 help"));
+                mod_4->add(new ShellCmd(env, "command 3", "root/mod 3/mod 2/mod 4/command 3 help"));
+                mod_4->add(new ShellCmd(env, "command 4", "root/mod 3/mod 2/mod 4/command 4 help"));
+        }
+};
+
 class ShellModuleTest : public ::testing::Test {
     protected:
         ShellEnv* env;
@@ -74,44 +118,7 @@ class ShellModuleComplexTest : public ::testing::Test {
         ShellModule * root = new ShellModule(env, "root", "my root module description");
 
         virtual void SetUp(void) {
-
-            /*   Commands tree:
-             *
-             *   root .......................................
-             *     |_ "mod 1"
-             *     |_ "mod 2"                        level 1
-             *     |_ "mod 3" ...............................
-             *          |_ "command 1"               level 2
-             *          |_ "mod 2" ..........................
-             *               |_ "command 2"          level 3
-             *               |_ "mod 4" .....................
-             *                    |_ "command 1"
-             *                    |_ "command 3"     level 4
-             *                    |_ "command 4" ............
-             */
-            /* level 1 */
-            this->root->add(new ShellModule(env, "mod 1", "root/mod 1/ description"));
-            this->root->add(new ShellModule(env, "mod 2", "root/mod 2/ description"));
-            ShellModule* mod_3 = new ShellModule(env, "mod 3", "root/mod 3/ description");
-            this->root->add(mod_3);
-
-            /* level 2 */
-            mod_3->add(new ShellCmd(env, "command 1", "root/mod 3/command 1 help"));
-            ShellModule* mod_2 = new ShellModule(env, "mod 2", "root/mod 3/mod 2/ description");
-            mod_3->add(mod_2);
-
-            /* level 3 */
-            mod_2->add(new ShellCmd(env, "command 2", "root/mod 3/mod 2/command 2 help"));
-            ShellModule* mod_4 = new ShellModule(env, "mod 4", "root/mod 3/mod 2/mod 4 description");
-            mod_2->add(mod_4);
-
-            /* level 4 */
-            mod_4->add(new ShellCmd(env, "command 1", "root/mod 3/mod 2/mod 4/command 1 help"));
-            mod_4->add(new ShellCmd(env, "command 3", "root/mod 3/mod 2/mod 4/command 3 help"));
-            mod_4->add(new ShellCmd(env, "command 4", "root/mod 3/mod 2/mod 4/command 4 help"));
-
-        }
-        virtual void TearDown(void) {
+            TestTree::createTree(this->root, this->env);
         }
 };
 
@@ -137,4 +144,23 @@ TEST_F(ShellModuleComplexTest, run) {
     component = this->root->findComponentFromTokens(tokens);
     vector<string> args {"first", "second"};
     EXPECT_EQ("/!\\ You cannot run this module directly\n\nroot/mod 3/mod 2/mod 4 description\n\nModules ([+]) and commands:\n\t  - command 1: root/mod 3/mod 2/mod 4/command 1 help\n\t  - command 3: root/mod 3/mod 2/mod 4/command 3 help\n\t  - command 4: root/mod 3/mod 2/mod 4/command 4 help\n", component->run(args));
+}
+
+class ShellModuleIteratorTest : public ::testing::Test {
+    protected:
+        ShellEnv* env = new ShellEnv("my env");
+        ShellModule * root = new ShellModule(env, "root", "my root module description");
+
+        virtual void SetUp(void) {
+            TestTree::createTree(this->root, this->env);
+        }
+};
+
+TEST_F(ShellModuleIteratorTest, findComponentFromTokens) {
+
+    ShellComponentIterator* it = this->root->createIterator();
+    ShellComponent* component;
+
+    component = it->next();
+    EXPECT_EQ("mod 4", component->getName());
 }

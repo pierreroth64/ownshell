@@ -28,7 +28,7 @@ string ShellCmd::run(vector<string> args)
 
 ShellComponentIterator* ShellCmd::createIterator()
 {
-    return new ShellComponentNullIterator();
+    return new ShellComponentNullIterator(this);
 }
 
 

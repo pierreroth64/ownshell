@@ -13,11 +13,11 @@
 #include <list>
 #include "shell_env.h"
 
-class ShellComponentIterator;
-
 using namespace std;
 
 namespace ownshell {
+
+class ShellComponentIterator;
 
 /**
  *  ShellComponent is an interface for objects in the composition (ShellCmds and ShellModules)
@@ -43,6 +43,7 @@ class ShellComponent
         virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
         void setParent(ShellComponent* parent) { parent_ = parent; };
         virtual unsigned int getParentsNb(void);
+        virtual ShellComponent* getFirstChild();
 
         virtual ShellComponentIterator* createIterator();
     protected:
