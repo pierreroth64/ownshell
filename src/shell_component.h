@@ -38,7 +38,7 @@ class ShellComponent
 
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);
-        virtual unsigned int getComponentsNb(void);
+        virtual unsigned int getChildrenNb(void);
         virtual ShellComponent* findComponentByName(string name);
         virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
         void setParent(ShellComponent* parent) { parent_ = parent; };

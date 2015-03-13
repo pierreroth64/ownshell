@@ -23,7 +23,7 @@ string ShellComponent::getHelp(void)
     return getDescription();
 }
 
-unsigned int ShellComponent::getComponentsNb(void)
+unsigned int ShellComponent::getChildrenNb(void)
 {
     return 0;
 }

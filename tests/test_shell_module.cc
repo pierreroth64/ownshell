@@ -76,7 +76,7 @@ TEST_F(ShellModuleTest, add) {
 
     my_mod->add(my_cmd_1);
     my_mod->add(my_cmd_2);
-    EXPECT_EQ(2, my_mod->getComponentsNb());
+    EXPECT_EQ(2, my_mod->getChildrenNb());
 
     delete my_cmd_1;
     delete my_cmd_2;

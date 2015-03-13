@@ -33,14 +33,14 @@ class ShellModule: public ShellComponent
 
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);
-        unsigned int getComponentsNb(void);
+        unsigned int getChildrenNb(void);
         virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
         virtual ShellComponent* findComponentByName(string name);
         virtual ShellComponent* getFirstChild();
 
         virtual ShellComponentIterator* createIterator();
     private:
-        list<ShellComponent* > components_;
+        list<ShellComponent* > children_;
         virtual ShellComponent* findComponent(ShellComponent * component);
 };
 
