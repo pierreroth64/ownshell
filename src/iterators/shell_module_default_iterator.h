@@ -32,6 +32,8 @@ class ShellModuleDefaultIterator : public ShellComponentIterator
         virtual ShellComponent* next();
         virtual bool hasNext();
         virtual void reset();
+        virtual unsigned int getPosition();
+        virtual void incPosition();
     protected:
         list<ShellComponentIterator* > iterators_;
         unsigned int position_;

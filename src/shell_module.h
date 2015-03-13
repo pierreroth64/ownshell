@@ -40,6 +40,7 @@ class ShellModule: public ShellComponent
 
         virtual ShellComponentIterator* createIterator();
     private:
+        map<string, ShellComponent* > children_;
         virtual ShellComponent* findComponent(ShellComponent * component);
 };
 
