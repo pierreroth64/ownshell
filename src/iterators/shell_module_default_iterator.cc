@@ -7,7 +7,7 @@
 
 #include "shell_module_default_iterator.h"
 
-#define __LOCAL_DEFAULT_IT_DEBUG
+//#define __LOCAL_DEFAULT_IT_DEBUG
 
 #ifdef __LOCAL_DEFAULT_IT_DEBUG
 #include <iostream>
