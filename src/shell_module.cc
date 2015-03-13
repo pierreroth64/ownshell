@@ -21,7 +21,7 @@ ShellComponent* ShellModule::findComponent(ShellComponent * component)
 ShellComponent* ShellModule::findComponentByName(string name)
 {
     ShellComponent* component;
-    for (list<ShellComponent *>::iterator it = components_.begin(); it != components_.end(); ++it) {
+    for (list<ShellComponent *>::iterator it = children_.begin(); it != children_.end(); ++it) {
         component = (*it);
         if (component->getName() == name)
              return component;
@@ -52,17 +52,17 @@ void ShellModule::add(ShellComponent* component)
         findComponent(component);
         throw shell_except_already("Component with such a name already exists");
     } catch (shell_except_not_found e) {
-        components_.push_back(component);
+        children_.push_back(component);
         component->setParent(this);
     }
 }
 
 void ShellModule::remove(ShellComponent* component)
 {
-    for (list<ShellComponent *>::iterator it = components_.begin(); it != components_.end(); ) {
+    for (list<ShellComponent *>::iterator it = children_.begin(); it != children_.end(); ) {
         if ((*it)->getName() == component->getName()) {
             component->setParent(NULL);
-            it = components_.erase(it);
+            it = children_.erase(it);
             break;
         } else {
             ++it;
@@ -70,10 +70,10 @@ void ShellModule::remove(ShellComponent* component)
     }
 }
 
-unsigned int ShellModule::getComponentsNb(void)
+unsigned int ShellModule::getChildrenNb(void)
 {
     /* We do not iterate over components: just want first level ones in tree */
-    return components_.size();
+    return children_.size();
 }
 
 string ShellModule::getHelp(void)
@@ -82,12 +82,12 @@ string ShellModule::getHelp(void)
     ShellHelpFormatter* formatter = env_->getHelpFormatter();
     string help = formatter->formatTitle(getDescription());
 
-    if (getComponentsNb()) {
+    if (getChildrenNb()) {
         help += formatter->formatSubTitle();
     }
-    for (list<ShellComponent *>::iterator it = components_.begin(); it != components_.end(); ++it) {
+    for (list<ShellComponent *>::iterator it = children_.begin(); it != children_.end(); ++it) {
         component = (*it);
-        if (component->getComponentsNb())
+        if (component->getChildrenNb())
             help += formatter->formatModuleHelp(component->getName(), component->getDescription());
         else
             help += formatter->formatModuleCmdHelp(component->getName(), component->getDescription());
