@@ -7,6 +7,7 @@ project(ownshell)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/src/help_formatters)
+include_directories(${PROJECT_SOURCE_DIR}/src/iterators)
 
 # lib google test (for unit tests)
 set(LIBGTEST_DIR "${PROJECT_SOURCE_DIR}/tests/libgtest")
@@ -33,6 +34,7 @@ set(SOURCES
     src/shell_info.cc
     src/help_formatters/shell_default_help_formatter.cc
     src/help_formatters/shell_colored_help_formatter.cc
+    src/iterators/shell_module_default_iterator.cc
 )
 
 set(OWNSHELL_NAME "\"ownShell Library\"")

@@ -7,6 +7,7 @@
 
 #include "shell_cmd.h"
 #include "shell_help_formatter.h"
+#include "shell_component_null_iterator.h"
 
 namespace ownshell {
 
@@ -24,5 +25,11 @@ string ShellCmd::run(vector<string> args)
     args = args;
     return "";
 }
+
+ShellComponentIterator* ShellCmd::createIterator()
+{
+    return new ShellComponentNullIterator(this);
+}
+
 
 } // namespace ownshell

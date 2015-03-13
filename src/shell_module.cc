@@ -7,6 +7,7 @@
 
 #include "shell_except.h"
 #include "shell_module.h"
+#include "iterators/shell_module_default_iterator.h"
 
 namespace ownshell {
 
@@ -97,5 +98,22 @@ string ShellModule::run(vector<string> args)
     string help = formatter->formatWarning("You cannot run this module directly");
     return help + getHelp();
 }
+
+ShellComponent* ShellModule::getChildAt(unsigned int rank)
+{
+    if (rank >= children_.size())
+        return NULL;
+    else {
+        map<string, ShellComponent *>::iterator it = children_.begin();
+        for (unsigned int i=0; i<rank; i++) it++;
+        return it->second;
+    }
+}
+
+ShellComponentIterator* ShellModule::createIterator()
+{
+    return new ShellModuleDefaultIterator(this);
+}
+
 
 } // namespace ownshell

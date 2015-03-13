@@ -67,4 +67,16 @@ unsigned int ShellComponent::getParentsNb()
     }
 }
 
+ShellComponent* ShellComponent::getChildAt(unsigned int rank)
+{
+    rank = rank;
+    return NULL;
+}
+
+ShellComponentIterator* ShellComponent::createIterator()
+{
+    throw shell_except_unsupported("Cannot create iterator with component base class");
+}
+
+
 } // namespace ownshell

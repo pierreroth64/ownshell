@@ -9,6 +9,7 @@
 #define _OWNSHELL_I_COMPONENT_H
 
 #include <string>
+#include <map>
 #include <vector>
 #include <list>
 #include "shell_env.h"
@@ -16,6 +17,8 @@
 using namespace std;
 
 namespace ownshell {
+
+class ShellComponentIterator;
 
 /**
  *  ShellComponent is an interface for objects in the composition (ShellCmds and ShellModules)
@@ -38,10 +41,14 @@ class ShellComponent
         virtual ShellComponent* findComponentByName(string name);
         virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
         void setParent(ShellComponent* parent) { parent_ = parent; };
-        unsigned int getParentsNb(void);
+        virtual unsigned int getParentsNb(void);
+        virtual ShellComponent* getChildAt(unsigned int rank);
+
+        virtual ShellComponentIterator* createIterator();
     protected:
         ShellComponent* parent_;
         ShellEnv* env_;
+        map<string, ShellComponent* > children_;
 
     private:
         string name_;
