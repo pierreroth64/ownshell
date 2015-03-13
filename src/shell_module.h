@@ -9,7 +9,7 @@
 #define _OWNSHELL_I_MODULE_H
 
 #include <string>
-#include <list>
+#include <map>
 #include "shell_env.h"
 #include "shell_component.h"
 
@@ -37,7 +37,7 @@ class ShellModule: public ShellComponent
         virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
         virtual ShellComponent* findComponentByName(string name);
     private:
-        list<ShellComponent* > children_;
+        map<string, ShellComponent* > children_;
         virtual ShellComponent* findComponent(ShellComponent * component);
 };
 

@@ -20,13 +20,10 @@ ShellComponent* ShellModule::findComponent(ShellComponent * component)
 
 ShellComponent* ShellModule::findComponentByName(string name)
 {
-    ShellComponent* component;
-    for (list<ShellComponent *>::iterator it = children_.begin(); it != children_.end(); ++it) {
-        component = (*it);
-        if (component->getName() == name)
-             return component;
-    }
-    throw shell_except_not_found("Component not found");
+    if (children_.count(name))
+        return children_[name];
+    else
+        throw shell_except_not_found("Component not found");
 }
 
 ShellComponent* ShellModule::findComponentFromTokens(vector<string> tokens)
@@ -52,21 +49,18 @@ void ShellModule::add(ShellComponent* component)
         findComponent(component);
         throw shell_except_already("Component with such a name already exists");
     } catch (shell_except_not_found e) {
-        children_.push_back(component);
+        children_[component->getName()] = component;
         component->setParent(this);
     }
 }
 
 void ShellModule::remove(ShellComponent* component)
 {
-    for (list<ShellComponent *>::iterator it = children_.begin(); it != children_.end(); ) {
-        if ((*it)->getName() == component->getName()) {
-            component->setParent(NULL);
-            it = children_.erase(it);
-            break;
-        } else {
-            ++it;
-        }
+    try {
+        findComponent(component);
+        children_.erase(component->getName());
+    } catch (...) {
+        /* silent when component not found */
     }
 }
 
@@ -85,8 +79,8 @@ string ShellModule::getHelp(void)
     if (getChildrenNb()) {
         help += formatter->formatSubTitle();
     }
-    for (list<ShellComponent *>::iterator it = children_.begin(); it != children_.end(); ++it) {
-        component = (*it);
+    for (map<string, ShellComponent *>::iterator it = children_.begin(); it != children_.end(); ++it) {
+        component = it->second;
         if (component->getChildrenNb())
             help += formatter->formatModuleHelp(component->getName(), component->getDescription());
         else
@@ -97,10 +91,10 @@ string ShellModule::getHelp(void)
 
 string ShellModule::run(vector<string> args)
 {
+    /* Note: 'running' a module returns help */
     args = args;
     ShellHelpFormatter* formatter = env_->getHelpFormatter();
     string help = formatter->formatWarning("You cannot run this module directly");
-    /* Running a module returns help */
     return help + getHelp();
 }
 
