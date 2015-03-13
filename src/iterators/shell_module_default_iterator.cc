@@ -11,18 +11,18 @@ using namespace std;
 
 namespace ownshell {
 
+void ShellModuleDefaultIterator::reset()
+{
+    position_ = 0;
+}
 ShellComponent* ShellModuleDefaultIterator::next()
 {
-    if (hasNext()) {
-        cout << "Looking for iterator... (next())" << endl;
-        ShellComponentIterator* iterator = (ShellComponentIterator* ) iterators_.back();
-        cout << "iterator: " << iterator->getName() << endl;
+    ShellComponent* current;
 
-        ShellComponent* component = iterator->next();
-        if (component->getComponentsNb()) {
-            iterators_.push_back(component->createIterator());
-        }
-        return component;
+    if (hasNext()) {
+        current = root_->getChildAt(position_);
+        position_++;
+        return current;
     }
     return NULL;
 }
@@ -30,17 +30,10 @@ ShellComponent* ShellModuleDefaultIterator::next()
 
 bool ShellModuleDefaultIterator::hasNext()
 {
-    if (iterators_.empty())
+    if (position_ <= root_->getChildrenNb()) {
+        return true;
+    } else {
         return false;
-    else {
-        cout << "Looking for iterator... (hasNext())" << endl;
-        ShellComponentIterator* iterator = (ShellComponentIterator*) iterators_.back();
-        if (!iterator->hasNext()) {
-            iterators_.pop_back();
-            return hasNext();
-        } else {
-            return true;
-        }
     }
 }
 

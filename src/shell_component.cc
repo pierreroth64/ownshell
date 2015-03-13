@@ -67,9 +67,10 @@ unsigned int ShellComponent::getParentsNb()
     }
 }
 
-ShellComponent* ShellComponent::getFirstChild()
+ShellComponent* ShellComponent::getChildAt(unsigned int rank)
 {
-    throw shell_except_unsupported("Operation not supported");
+    rank = rank;
+    return NULL;
 }
 
 ShellComponentIterator* ShellComponent::createIterator()

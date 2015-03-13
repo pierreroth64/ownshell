@@ -9,6 +9,7 @@
 #define _OWNSHELL_I_COMPONENT_H
 
 #include <string>
+#include <map>
 #include <vector>
 #include <list>
 #include "shell_env.h"
@@ -43,12 +44,13 @@ class ShellComponent
         virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
         void setParent(ShellComponent* parent) { parent_ = parent; };
         virtual unsigned int getParentsNb(void);
-        virtual ShellComponent* getFirstChild();
+        virtual ShellComponent* getChildAt(unsigned int rank);
 
         virtual ShellComponentIterator* createIterator();
     protected:
         ShellComponent* parent_;
         ShellEnv* env_;
+        map<string, ShellComponent* > children_;
 
     private:
         string name_;

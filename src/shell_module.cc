@@ -99,9 +99,15 @@ string ShellModule::run(vector<string> args)
     return help + getHelp();
 }
 
-ShellComponent* ShellModule::getFirstChild()
+ShellComponent* ShellModule::getChildAt(unsigned int rank)
 {
-    return components_.front();
+    if (rank >= children_.size())
+        return NULL;
+    else {
+        map<string, ShellComponent *>::iterator it = children_.begin();
+        for (unsigned int i=0; i<rank; i++) it++;
+        return it->second;
+    }
 }
 
 ShellComponentIterator* ShellModule::createIterator()

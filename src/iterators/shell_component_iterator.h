@@ -25,6 +25,7 @@ class ShellComponentIterator
 
         virtual ShellComponent* next() = 0;
         virtual bool hasNext() = 0;
+        virtual void reset() = 0;
         string getName() { return name_; };
     protected:
         ShellComponent* root_;

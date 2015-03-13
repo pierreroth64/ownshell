@@ -25,17 +25,16 @@ class ShellModuleDefaultIterator : public ShellComponentIterator
 {
     public:
         ShellModuleDefaultIterator(ShellComponent* component) : ShellComponentIterator(component) {
-                cout << "Creating Iterator for module: " << component->getName() << endl;
-                name_ = "ModuleDefaultIterator";
-                ShellComponent* child = root_->getFirstChild();
-                iterators_.push_back(child->createIterator());
+               reset();
             };
         virtual ~ShellModuleDefaultIterator() {};
 
         virtual ShellComponent* next();
         virtual bool hasNext();
+        virtual void reset();
     protected:
         list<ShellComponentIterator* > iterators_;
+        unsigned int position_;
 };
 
 } // namespace ownshell

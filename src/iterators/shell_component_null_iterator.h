@@ -22,6 +22,7 @@ class ShellComponentNullIterator : public ShellComponentIterator
 
         virtual ShellComponent* next() { return NULL; };
         virtual bool hasNext() { return 0; };
+        virtual void reset() {};
 };
 
 } // namespace ownshell

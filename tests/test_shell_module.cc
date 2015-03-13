@@ -146,6 +146,15 @@ TEST_F(ShellModuleComplexTest, run) {
     EXPECT_EQ("/!\\ You cannot run this module directly\n\nroot/mod 3/mod 2/mod 4 description\n\nModules ([+]) and commands:\n\t  - command 1: root/mod 3/mod 2/mod 4/command 1 help\n\t  - command 3: root/mod 3/mod 2/mod 4/command 3 help\n\t  - command 4: root/mod 3/mod 2/mod 4/command 4 help\n", component->run(args));
 }
 
+TEST_F(ShellModuleComplexTest, getChildAt) {
+
+    ShellComponent* component;
+
+    component = this->root->getChildAt(0);
+    EXPECT_EQ("mod 1", component->getName());
+}
+
+
 class ShellModuleIteratorTest : public ::testing::Test {
     protected:
         ShellEnv* env = new ShellEnv("my env");
@@ -162,5 +171,9 @@ TEST_F(ShellModuleIteratorTest, findComponentFromTokens) {
     ShellComponent* component;
 
     component = it->next();
-    EXPECT_EQ("mod 4", component->getName());
+    EXPECT_EQ("mod 1", component->getName());
+
+    component = it->next();
+    EXPECT_EQ("mod 2", component->getName());
 }
+
