@@ -26,8 +26,6 @@ class ShellComponentIterator;
 
 class ShellComponent
 {
-    friend class ShellComponentIterator;
-
     public:
         ShellComponent(ShellEnv* env, string name, string description);
         virtual ~ShellComponent() {};
