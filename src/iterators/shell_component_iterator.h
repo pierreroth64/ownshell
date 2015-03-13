@@ -20,13 +20,18 @@ namespace ownshell {
 class ShellComponentIterator
 {
     public:
-        ShellComponentIterator(ShellComponent* component) { root_ = component; };
+        ShellComponentIterator(ShellComponent* component) { root_ = component;
+                                                            name_ = component->getName();};
         virtual ~ShellComponentIterator() {};
 
         virtual ShellComponent* next() = 0;
         virtual bool hasNext() = 0;
         virtual void reset() = 0;
         string getName() { return name_; };
+        virtual ShellComponent* getRootChildAt(unsigned int rank) { return root_->getChildAt(rank); };
+        virtual unsigned int getRootChildrenNb() { return root_->getChildrenNb(); };
+        virtual unsigned int getPosition() { return 0; };
+        virtual void incPosition() {};
     protected:
         ShellComponent* root_;
         string name_;

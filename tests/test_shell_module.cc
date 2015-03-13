@@ -24,13 +24,15 @@ class TestTree {
                  *     |_ "mod 1"
                  *     |_ "mod 2"                        level 1
                  *     |_ "mod 3" ...............................
-                 *          |_ "command 1"               level 2
-                 *          |_ "mod 2" ..........................
-                 *               |_ "command 2"          level 3
-                 *               |_ "mod 4" .....................
-                 *                    |_ "command 1"
-                 *                    |_ "command 3"     level 4
-                 *                    |_ "command 4" ............
+                 *     |     |_ "command 1"               level 2
+                 *     |     |_ "mod 2" ..........................
+                 *     |          |_ "command 2"          level 3
+                 *     |          |_ "mod 4" .....................
+                 *     |               |_ "command 1"
+                 *     |               |_ "command 3"     level 4
+                 *     |               |_ "command 4" ............
+                 *     |
+                 *     |_ "last" ........................ level 1
                  */
                 /* level 1 */
                 root->add(new ShellModule(env, "mod 1", "root/mod 1/ description"));
@@ -52,6 +54,9 @@ class TestTree {
                 mod_4->add(new ShellCmd(env, "command 1", "root/mod 3/mod 2/mod 4/command 1 help"));
                 mod_4->add(new ShellCmd(env, "command 3", "root/mod 3/mod 2/mod 4/command 3 help"));
                 mod_4->add(new ShellCmd(env, "command 4", "root/mod 3/mod 2/mod 4/command 4 help"));
+
+                /* level 1 again */
+                root->add(new ShellCmd(env, "zlast", "root/last/last help"));
         }
 };
 
@@ -175,5 +180,17 @@ TEST_F(ShellModuleIteratorTest, findComponentFromTokens) {
 
     component = it->next();
     EXPECT_EQ("mod 2", component->getName());
+
+    component = it->next();
+    EXPECT_EQ("mod 3", component->getName());
+
+    component = it->next();
+    EXPECT_EQ("command 1", component->getName());
+
+    component = it->next();
+    EXPECT_EQ("mod 2", component->getName());
+
+    component = it->next();
+    EXPECT_EQ("command 2", component->getName());
 }
 
