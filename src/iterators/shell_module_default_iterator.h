@@ -27,7 +27,7 @@ class ShellModuleDefaultIterator : public ShellComponentIterator
         ShellModuleDefaultIterator(ShellComponent* component) : ShellComponentIterator(component) {
                reset();
             };
-        virtual ~ShellModuleDefaultIterator() {};
+        virtual ~ShellModuleDefaultIterator();
 
         virtual ShellComponent* next();
         virtual bool hasNext();

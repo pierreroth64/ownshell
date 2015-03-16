@@ -180,7 +180,7 @@ class ShellModuleIteratorTest : public ::testing::Test {
         }
 };
 
-TEST_F(ShellModuleIteratorTest, findComponentFromTokens) {
+TEST_F(ShellModuleIteratorTest, next) {
 
     ShellComponentIterator* it = this->root->createIterator();
     ShellComponent* component;
@@ -202,5 +202,16 @@ TEST_F(ShellModuleIteratorTest, findComponentFromTokens) {
 
     component = it->next();
     EXPECT_EQ("command 2", component->getName());
+}
+
+TEST_F(ShellModuleIteratorTest, destroyBeforeEnd) {
+
+    ShellComponentIterator* it = this->root->createIterator();
+    ShellComponent* component;
+
+    component = it->next();
+    EXPECT_EQ("mod 1", component->getName());
+
+    delete it;
 }
 

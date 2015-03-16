@@ -17,6 +17,15 @@ using namespace std;
 
 namespace ownshell {
 
+ShellModuleDefaultIterator::~ShellModuleDefaultIterator()
+{
+    /* delete remaining children iterators when destroying top one */
+    for(std::list<ShellComponentIterator*>::iterator it = iterators_.begin(); it != iterators_.end(); ++it) {
+        if (*it != this)
+            delete *it;
+    }
+}
+
 void ShellModuleDefaultIterator::reset()
 {
     position_ = 0;
@@ -77,6 +86,7 @@ bool ShellModuleDefaultIterator::hasNext()
 #ifdef __LOCAL_DEFAULT_IT_DEBUG
             cout << "Removing iterator: " << it->getName() << endl;
 #endif
+            delete iterators_.back();
             iterators_.pop_back();
             return false;
         }
