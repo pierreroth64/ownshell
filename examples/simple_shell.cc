@@ -64,7 +64,7 @@ int main(void) {
     my_shell->setTopHelp("This Simple Shell shows how to create your modules/commands tree\n\n"
                          "Enter <module1>...<moduleN> <command> to run a command\n"
                          "Enter <module1>...<moduleN> or help <module1>...<moduleN> to display module help\n"
-                         "Enter <module1>...<moduleN> <command> to display command help\n");
+                         "Enter help <module1>...<moduleN> <command> to display command help\n");
     my_shell->loop();
 
     exit(0);
