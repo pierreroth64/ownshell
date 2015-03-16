@@ -28,3 +28,7 @@ target_link_libraries(env_shell.bin libownshell)
 # colored shell
 add_executable(colored_shell.bin colored_shell.cc)
 target_link_libraries(colored_shell.bin libownshell)
+
+# man shell
+add_executable(man_shell.bin man_shell.cc)
+target_link_libraries(man_shell.bin libownshell)

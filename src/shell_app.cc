@@ -8,6 +8,9 @@
 #include "shell_except.h"
 #include "shell_app.h"
 #include "shell_module.h"
+#include "iterators/shell_component_iterator.h"
+#include "help_formatters/shell_help_formatter.h"
+#include "help_formatters/shell_help_formatter_factory.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -148,6 +151,30 @@ void ShellApp::loop(void)
             hooks_->on_error(&e, (ShellComponent*) NULL);
         }
     };
+}
+
+string ShellApp::getMan(string format)
+{
+    string man;
+    ShellHelpFormatter* formatter_backup = env_->getHelpFormatter();
+    ShellHelpFormatter* formatter  = ShellHelpFormatterFactory::createFormatterFromFormat(format);
+    env_->setHelpFormatter(formatter);
+
+    ShellComponentIterator* it = root_->createIterator();
+    ShellComponent * component;
+
+    man = getTopHelp() + "\n";
+    while (it->hasNext()) {
+        component = it->next();
+        if (!component->getChildrenNb()) { /* only get leafs which are actual commands
+                                         (and not modules containers)*/
+            man += component->getFullPath() + ": " + component->getHelp() + "\n";
+        }
+    }
+    env_->setHelpFormatter(formatter_backup);
+    delete formatter;
+
+    return man;
 }
 
 } // namespace ownshell
