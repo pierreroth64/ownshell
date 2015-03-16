@@ -31,6 +31,7 @@ class ShellComponent
         virtual ~ShellComponent() {};
 
         string getName() { return name_; };
+        string getFullPath();
         virtual string run(vector<string> args);
         virtual string getHelp();
         virtual string getDescription() { return description_; };
@@ -40,6 +41,8 @@ class ShellComponent
         virtual unsigned int getChildrenNb(void);
         virtual ShellComponent* findComponentByName(string name);
         virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
+
+        ShellComponent* getParent() { return parent_; };
         void setParent(ShellComponent* parent) { parent_ = parent; };
         virtual unsigned int getParentsNb(void);
         virtual ShellComponent* getChildAt(unsigned int rank);

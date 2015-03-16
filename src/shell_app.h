@@ -55,6 +55,7 @@ class ShellApp
         void setHelpCommand(string name) { help_cmd_ = name; };
         void setTopHelp(string msg) { top_help_msg_ = msg; };
         void setWelcomeBanner(string banner) { welcome_banner_ = banner; };
+        string getMan(string format);
 
     private:
         ShellEnv* env_;

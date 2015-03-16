@@ -67,6 +67,24 @@ unsigned int ShellComponent::getParentsNb()
     }
 }
 
+string ShellComponent::getFullPath()
+{
+    list<string> names;
+    string full_path;
+    ShellComponent* current = this;
+
+    do {
+        names.push_back(current->getName());
+        current = current->getParent();
+    } while(current->getParent() != NULL);
+
+    for(std::list<string>::iterator it = names.begin(); it != names.end(); ++it) {
+        full_path += *it + " ";
+    }
+    full_path.erase(full_path.begin() + full_path.size() - 1); /* remove last space */
+    return full_path;
+}
+
 ShellComponent* ShellComponent::getChildAt(unsigned int rank)
 {
     rank = rank;

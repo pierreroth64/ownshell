@@ -32,6 +32,7 @@ set(SOURCES
     src/shell_component.cc
     src/shell_app.cc
     src/shell_info.cc
+    src/help_formatters/shell_help_formatter_factory.cc
     src/help_formatters/shell_default_help_formatter.cc
     src/help_formatters/shell_colored_help_formatter.cc
     src/iterators/shell_module_default_iterator.cc
