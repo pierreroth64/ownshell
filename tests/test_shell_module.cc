@@ -159,6 +159,16 @@ TEST_F(ShellModuleComplexTest, getChildAt) {
     EXPECT_EQ("mod 1", component->getName());
 }
 
+TEST_F(ShellModuleComplexTest, getFullPath) {
+
+    ShellComponent* component;
+    vector<string> tokens {"mod 3", "mod 2", "mod 4"};
+    component = this->root->findComponentFromTokens(tokens);
+    EXPECT_EQ("root/mod 3/mod 2/mod 4 description", component->getDescription());
+
+    EXPECT_EQ("mod 4 mod 2 mod 3", component->getFullPath());
+}
+
 
 class ShellModuleIteratorTest : public ::testing::Test {
     protected:

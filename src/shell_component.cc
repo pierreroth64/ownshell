@@ -79,8 +79,9 @@ string ShellComponent::getFullPath()
     } while(current->getParent() != NULL);
 
     for(std::list<string>::iterator it = names.begin(); it != names.end(); ++it) {
-        full_path += *it;
+        full_path += *it + " ";
     }
+    full_path.erase(full_path.begin() + full_path.size() - 1); /* remove last space */
     return full_path;
 }
 
