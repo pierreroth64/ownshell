@@ -9,6 +9,7 @@ set(UNITTEST_FILES
     test_shell_env.cc
     test_shell_cmd.cc
     test_shell_module.cc
+    test_shell_iterators.cc
     shell_cmd_test.cc
 )
 

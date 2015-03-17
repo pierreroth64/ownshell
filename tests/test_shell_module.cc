@@ -169,49 +169,7 @@ TEST_F(ShellModuleComplexTest, getFullPath) {
     EXPECT_EQ("mod 4 mod 2 mod 3", component->getFullPath());
 }
 
+TEST_F(ShellModuleComplexTest, getAllChildrenNb) {
 
-class ShellModuleIteratorTest : public ::testing::Test {
-    protected:
-        ShellEnv* env = new ShellEnv("my env");
-        ShellModule * root = new ShellModule(env, "root", "my root module description");
-
-        virtual void SetUp(void) {
-            TestTree::createTree(this->root, this->env);
-        }
-};
-
-TEST_F(ShellModuleIteratorTest, next) {
-
-    ShellComponentIterator* it = this->root->createIterator();
-    ShellComponent* component;
-
-    component = it->next();
-    EXPECT_EQ("mod 1", component->getName());
-
-    component = it->next();
-    EXPECT_EQ("mod 2", component->getName());
-
-    component = it->next();
-    EXPECT_EQ("mod 3", component->getName());
-
-    component = it->next();
-    EXPECT_EQ("command 1", component->getName());
-
-    component = it->next();
-    EXPECT_EQ("mod 2", component->getName());
-
-    component = it->next();
-    EXPECT_EQ("command 2", component->getName());
+    EXPECT_EQ(11, this->root->getAllChildrenNb());
 }
-
-TEST_F(ShellModuleIteratorTest, destroyBeforeEnd) {
-
-    ShellComponentIterator* it = this->root->createIterator();
-    ShellComponent* component;
-
-    component = it->next();
-    EXPECT_EQ("mod 1", component->getName());
-
-    delete it;
-}
-

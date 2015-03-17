@@ -34,6 +34,7 @@ class ShellModule: public ShellComponent
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);
         unsigned int getChildrenNb(void);
+        unsigned int getAllChildrenNb(void);
         virtual ShellComponent* findComponentFromTokens(vector<string> tokens);
         virtual ShellComponent* findComponentByName(string name);
         virtual ShellComponent* getChildAt(unsigned int rank);

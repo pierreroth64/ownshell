@@ -71,6 +71,18 @@ unsigned int ShellModule::getChildrenNb(void)
     return children_.size();
 }
 
+unsigned int ShellModule::getAllChildrenNb(void)
+{
+    unsigned int children_nb = children_.size();
+    ShellComponent* child;
+
+    for (map<string, ShellComponent *>::iterator it = children_.begin(); it != children_.end(); ++it) {
+        child = it->second;
+        children_nb += child->getAllChildrenNb();
+    }
+    return children_nb;
+}
+
 string ShellModule::getHelp(void)
 {
     ShellComponent * component;

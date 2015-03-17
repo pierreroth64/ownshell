@@ -28,6 +28,11 @@ unsigned int ShellComponent::getChildrenNb(void)
     return 0;
 }
 
+unsigned int ShellComponent::getAllChildrenNb(void)
+{
+    return 0;
+}
+
 void ShellComponent::add(ShellComponent* component)
 {
     component = component;
