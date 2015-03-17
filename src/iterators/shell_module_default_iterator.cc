@@ -53,7 +53,7 @@ ShellComponent* ShellModuleDefaultIterator::next()
         cout << "iterator: " << it->getName() << endl;
 #endif
         current = it->getRootChildAt(it->getPosition());
-        if (current->getChildrenNb()) {
+        if (current->getComponentType() == ShellComponent::composite_e) {
 #ifdef __LOCAL_DEFAULT_IT_DEBUG
             cout << "Adding iterator for : " << current->getName() << endl;
 #endif

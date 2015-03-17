@@ -27,6 +27,11 @@ class ShellComponentIterator;
 class ShellComponent
 {
     public:
+        enum component_type {
+            primitive_e,
+            composite_e
+        };
+
         ShellComponent(ShellEnv* env, string name, string description);
         virtual ~ShellComponent() {};
 
@@ -35,6 +40,7 @@ class ShellComponent
         virtual string run(vector<string> args);
         virtual string getHelp();
         virtual string getDescription() { return description_; };
+        virtual component_type getComponentType() { return primitive_e; };
 
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);

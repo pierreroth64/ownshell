@@ -30,6 +30,7 @@ class ShellCmd: public ShellComponent
         };
         virtual ~ShellCmd(){};
         virtual string getHelp(void);
+        virtual component_type getComponentType() { return primitive_e; };
         virtual string run(vector<string> args);
 
         virtual ShellComponentIterator* createIterator();

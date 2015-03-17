@@ -17,6 +17,8 @@ using namespace std;
 
 namespace ownshell {
 
+class ShellModuleIterator;
+
 /**
  *
  * A ShellModule is a composite (includes ShellComponents)
@@ -24,12 +26,15 @@ namespace ownshell {
 
 class ShellModule: public ShellComponent
 {
+    friend ShellModuleIterator;
+
     public:
         ShellModule(ShellEnv* env, string name, string description) : ShellComponent(env, name, description){};
         virtual ~ShellModule() {};
 
         virtual string run(vector<string> args);
         virtual string getHelp();
+        virtual component_type getComponentType() { return composite_e; };
 
         virtual void add(ShellComponent * component);
         virtual void remove(ShellComponent * component);
@@ -40,7 +45,8 @@ class ShellModule: public ShellComponent
         virtual ShellComponent* getChildAt(unsigned int rank);
 
         virtual ShellComponentIterator* createIterator();
-    private:
+    protected:
+        int index_;
         map<string, ShellComponent* > children_;
         virtual ShellComponent* findComponent(ShellComponent * component);
 };
